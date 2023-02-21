@@ -5,17 +5,18 @@
 }
 
 :root {
+	display: flex;
+	padding: 20px;
+	border: 1px solid green;
+	height: 100vh;
+	align-items: center;
+
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-	height: 100vh;
-	overflow: hidden;
-	overflow-x: scroll;
-
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
 	background-color: #242424;
-
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -24,40 +25,20 @@
 }
 
 .entry {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: fit-content;
+	overflow-y: scroll;
+	height: calc(100vh - 200px);
+	padding: 50px 0px;
 }
 
-.line {
-	padding: 0px 200px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.year {
+	font-size: 50px;
+	width: 500px;
+	text-align: center;
+	border-radius: 10px;
 }
 
-.center {
-	border: 1px solid red;
-	height: 70px;
-	width: 55px;
-	position: fixed;
-	left: calc(50% - 25px);
-}
-
-.point {
-	height: 50px;
-	margin: 0px 20px;
-	display: flex;
-	align-items: center;
-	flex-flow: column nowrap;
-}
-
-.hline {
-	width: 1px;
-	height: 100%;
-	background-color: white;
+.selected {
+	background-color: lightgray;
 }
 
 @media (prefers-color-scheme: light) {
