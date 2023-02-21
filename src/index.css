@@ -5,12 +5,6 @@
 }
 
 :root {
-	display: flex;
-	padding: 20px;
-	border: 1px solid green;
-	height: 100vh;
-	align-items: center;
-
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
@@ -24,21 +18,51 @@
 	-webkit-text-size-adjust: 100%;
 }
 
-.entry {
+main {
+	display: flex;
+	justify-content: space-between;
+	padding: 20px;
+	border: 1px solid orange;
+	width: 100vw;
+	height: 100vh;
+	gap: 20px;
+}
+
+.header {
+	text-decoration: underline;
+}
+
+.years_container {
+	border: 1px solid red;
+	padding: 20px;
+}
+
+.list_of_years {
 	overflow-y: scroll;
-	height: calc(100vh - 200px);
-	padding: 50px 0px;
+	width: fit-content;
+	padding: 20px 0px;
+}
+
+.stories_container {
+	border: 1px solid green;
+	flex-grow: 1;
+	padding: 20px;
+}
+
+.list_of_stories {
+}
+
+.story {
+	padding: 20px;
 }
 
 .year {
-	font-size: 50px;
 	width: 500px;
 	text-align: center;
-	border-radius: 10px;
 }
 
 .selected {
-	background-color: lightgray;
+	border: 1px solid lightgray;
 }
 
 @media (prefers-color-scheme: light) {
