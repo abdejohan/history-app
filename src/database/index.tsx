@@ -1,5 +1,7 @@
 import * as AWS from "aws-sdk";
 import { DynamoDB } from "aws-sdk";
+import { HistoryEvent } from "../types";
+
 const docClient = new DynamoDB.DocumentClient({
 	region: import.meta.env.VITE_REGION,
 	accessKeyId: import.meta.env.VITE_ACCESS_KEY,
@@ -22,9 +24,7 @@ const fetchData = (tableName: string) => {
 };
 
 // Add data to DynamoDB
-const putData = (tableName: string, data: Record<string, any>) => {
-	AWS.config.update({ region: "us-east-1" });
-
+const putData = (tableName: string, data: HistoryEvent) => {
 	var params = {
 		TableName: tableName,
 		Item: data,

@@ -1,54 +1,68 @@
 import { FormEvent } from "react";
 import { fetchData, putData } from "../database";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { HistoryEvent } from "../types";
 
 function Admin() {
-	const fetchDataFormDynamoDb = async () => {
-		await fetchData("Stories");
-	};
+	const {
+		register,
+		getValues,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<HistoryEvent>();
 
-	const addDataToDynamoDB = async () => {
-		const userData = {
-			name: "Faisal",
-			age: "170",
-		};
-
-		await putData("Stories", userData);
-	};
-
-	const handleSubmit = (event: any) => {
-		event.preventDefault();
-		for (let i = 0; i < event.target.length; i++) {
-			console.log(event.target[i].value);
-		}
+	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
+		const values = getValues();
+		console.log(values);
+		putData("Events", values);
 	};
 
 	return (
 		<main>
 			<div>
-				<h1>Welcome Boss</h1>
-				<form onSubmit={handleSubmit} className='event_form'>
+				<h1 style={{ textDecoration: "underline" }}>Welcome Boss</h1>
+				<h2>Upload new event</h2>
+				<form onSubmit={handleSubmit(onSubmit)} className='event_form'>
+					{/* TITLE */}
 					<div className='input_wrapper'>
-						<label htmlFor='fname'>Title:</label>
-						<input type='text'></input>
+						<label htmlFor='title'>Title</label>
+						<input type='text' {...register("title", { required: true })} />
+						{errors.title && <span>This field is required</span>}
 					</div>
+					{/* YEAR */}
 					<div className='input_wrapper'>
-						<label htmlFor='fname'>year:</label>
-						<input type='text'></input>
+						<label htmlFor='year'>Year</label>
+						<input
+							type='number'
+							{...register("year", { required: true, valueAsNumber: true })}
+						/>
+						{errors.year && <span>This field is required</span>}
 					</div>
+					{/* TEXT */}
 					<div className='input_wrapper'>
-						<label htmlFor='fname'>text:</label>
-						<input type='text'></input>
+						<label htmlFor='text'>Text</label>
+						<textarea
+							{...register("text", { required: true })}
+							rows={15}
+							minLength={50}
+						/>
+						{errors.text && <span>This field is required</span>}
 					</div>
+					{/* (
+						<div className='input_wrapper'>
+							<label htmlFor='image'>Select a image</label>
+							<input
+								type='file'
+								accept='image/*'
+								{...register("image", { required: false })}
+							/>
+							{errors.image && <span>This field is required</span>}
+						</div>
+					) */}
 					<div className='input_wrapper'>
-						<label htmlFor='img'>Select image:</label>
-						<input type='file' id='img' name='img' accept='image/*'></input>
-					</div>
-					<div className='input_wrapper'>
-						<input type='submit'></input>
+						<input type='submit' />
 					</div>
 				</form>
-				<button onClick={() => fetchDataFormDynamoDb()}> Fetch </button>
-				<button onClick={() => addDataToDynamoDB()}> Put </button>
 			</div>
 		</main>
 	);
