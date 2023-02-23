@@ -1,20 +1,27 @@
-import { FormEvent } from "react";
-import { fetchData, putData } from "../database";
+import { saveDataToDB } from "../database";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HistoryEvent } from "../types";
+import {
+	FormErrorMessage,
+	FormLabel,
+	FormControl,
+	Input,
+	Button,
+	Textarea,
+} from "@chakra-ui/react";
 
 function Admin() {
 	const {
 		register,
 		getValues,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<HistoryEvent>();
 
 	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
 		const values = getValues();
 		console.log(values);
-		putData("Events", values);
+		await saveDataToDB("Events", values);
 	};
 
 	return (
@@ -24,44 +31,56 @@ function Admin() {
 				<h2>Upload new event</h2>
 				<form onSubmit={handleSubmit(onSubmit)} className='event_form'>
 					{/* TITLE */}
-					<div className='input_wrapper'>
-						<label htmlFor='title'>Title</label>
-						<input type='text' {...register("title", { required: true })} />
-						{errors.title && <span>This field is required</span>}
-					</div>
+					<FormControl isInvalid={errors.title}></FormControl>
+					<FormLabel htmlFor='title'>Title</FormLabel>
+					<Input
+						type='text'
+						{...register("title", {
+							required: "This field is required",
+							minLength: { value: 5, message: "Minimum length should be 4" },
+						})}
+					/>
+					<FormErrorMessage>{errors.title && errors.title.message}</FormErrorMessage>
 					{/* YEAR */}
-					<div className='input_wrapper'>
-						<label htmlFor='year'>Year</label>
-						<input
+					<FormControl isInvalid={errors.year}>
+						<FormLabel htmlFor='year'>Year</FormLabel>
+						<Input
 							type='number'
-							{...register("year", { required: true, valueAsNumber: true })}
+							{...register("year", {
+								required: "This field is required",
+								valueAsNumber: true,
+								max: {
+									value: Number(new Date().getFullYear()),
+									message: "Wow! We are not here yet :/",
+								},
+							})}
 						/>
-						{errors.year && <span>This field is required</span>}
-					</div>
-					{/* TEXT */}
-					<div className='input_wrapper'>
-						<label htmlFor='text'>Text</label>
-						<textarea
-							{...register("text", { required: true })}
+						<FormErrorMessage>{errors.year && errors.year.message}</FormErrorMessage>
+						{/* TEXT */}
+					</FormControl>
+					<FormControl isInvalid={errors.text}>
+						<FormLabel htmlFor='text'>Text</FormLabel>
+						<Textarea
+							{...register("text", { required: "This field is required" })}
 							rows={15}
 							minLength={50}
 						/>
-						{errors.text && <span>This field is required</span>}
-					</div>
+						<FormErrorMessage>{errors.text && errors.text.message}</FormErrorMessage>
+					</FormControl>
 					{/* (
-						<div className='input_wrapper'>
-							<label htmlFor='image'>Select a image</label>
-							<input
-								type='file'
-								accept='image/*'
-								{...register("image", { required: false })}
-							/>
-							{errors.image && <span>This field is required</span>}
-						</div>
+					<FormControl isInvalid={errors.image}>
+						<FormLabel htmlFor='image'>Select a image</FormLabel>
+						<Input
+						type='file'
+						accept='image/*'
+						{...register("image", { required: false })}
+						/>
+						<FormErrorMessage>{errors.image && errors.text.message}</FormErrorMessage>
+					</FormControll>
 					) */}
-					<div className='input_wrapper'>
-						<input type='submit' />
-					</div>
+					<Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
+						Submit
+					</Button>
 				</form>
 			</div>
 		</main>
