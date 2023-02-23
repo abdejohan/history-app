@@ -1,42 +1,42 @@
-import * as AWS from "aws-sdk";
-import { DynamoDB } from "aws-sdk";
+import DynamoDB from "aws-sdk/clients/dynamodb";
 import { HistoryEvent } from "../types";
 
-const docClient = new DynamoDB.DocumentClient({
+const dynamodb = new DynamoDB.DocumentClient({
 	region: import.meta.env.VITE_REGION,
 	accessKeyId: import.meta.env.VITE_ACCESS_KEY,
 	secretAccessKey: import.meta.env.VITE_SECRET_ACCESS_KEY,
 });
 
 // Fetch data from DynamoDB
-const fetchData = (tableName: string) => {
-	var params = {
+const fetchDataFromDB = async (tableName: string) => {
+	const params = {
 		TableName: tableName,
 	};
-
-	docClient.scan(params, function (err, data) {
-		if (err) {
-			console.log("Error", err);
-		} else {
-			console.log(data);
-		}
-	});
+	try {
+		const fetchedData = await dynamodb.scan(params).promise();
+		console.log("Successfully fetched data: ", fetchedData);
+		return fetchedData;
+	} catch (error) {
+		console.log("Failed to fetch data", error);
+		return error;
+	}
 };
 
 // Add data to DynamoDB
-const putData = (tableName: string, data: HistoryEvent) => {
+const saveDataToDB = async (tableName: string, data: HistoryEvent) => {
 	var params = {
 		TableName: tableName,
 		Item: data,
 	};
 
-	docClient.put(params, function (err, data) {
-		if (err) {
-			console.log("Error", err);
-		} else {
-			console.log("Success", data);
-		}
-	});
+	try {
+		const savedData = await dynamodb.put(params).promise();
+		console.log("Successfully saved data: ", savedData);
+		return savedData;
+	} catch (error) {
+		console.log("Failed to saved data", error);
+		return error;
+	}
 };
 
-export { fetchData, putData };
+export { fetchDataFromDB, saveDataToDB };
