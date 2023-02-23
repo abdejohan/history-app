@@ -9,8 +9,8 @@ const arrayOfStories = [
 	},
 	{
 		id: 2,
-		year: -300,
 		title: "Alexander The Great is Born",
+		year: -300,
 		text: "King Philip II has his first son",
 		image:
 			"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/David_-_Napoleon_crossing_the_Alps_-_Malmaison2.jpg/800px-David_-_Napoleon_crossing_the_Alps_-_Malmaison2.jpg",

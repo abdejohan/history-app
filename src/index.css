@@ -65,6 +65,22 @@ main {
 	border: 1px solid lightgray;
 }
 
+.event_form {
+	display: flex;
+	flex-flow: column nowrap;
+	border: 1px solid grey;
+	margin: 20px 0px;
+}
+
+.input_wrapper {
+	padding: 5px;
+}
+
+.input_wrapper,
+input {
+	margin-left: 10px;
+}
+
 @media (prefers-color-scheme: light) {
 	:root {
 		color: #213547;

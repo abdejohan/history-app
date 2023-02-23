@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./routes/Home";
 import Admin from "./routes/Admin";
-import { ChakraProvider } from "@chakra-ui/react";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./routes/ErrorPage";
@@ -22,8 +21,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
-		<ChakraProvider resetCSS={false}>
-			<RouterProvider router={router} />
-		</ChakraProvider>
+		<RouterProvider router={router} />
 	</React.StrictMode>
 );
