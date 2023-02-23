@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Event from "./components/Event";
-import YearListItem from "./components/YearListItem";
-import { arrayOfStories } from "./utils";
+import Event from "../components/Event";
+import YearListItem from "../components/YearListItem";
+import { arrayOfStories } from "../utils";
 
-function App() {
+function Home() {
 	const [selectedYear, setSelectedYear] = useState<number>();
 
 	return (
@@ -35,4 +35,4 @@ function App() {
 	);
 }
 
-export default App;
+export default Home;
