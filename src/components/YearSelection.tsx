@@ -31,7 +31,7 @@ const centuriesCE = Array(21)
 
 const YearSelection: React.FC<ItemProps> = ({ selectedYear, setSelectedYear }) => {
 	const [tabIndex, setTabIndex] = useState<number>(0);
-	const [accordionIndex, setdAccordionIndex] = useState<number | number[] | null>();
+	const [accordionIndex, setdAccordionIndex] = useState<number | number[]>();
 
 	useEffect(() => {
 		if (typeof accordionIndex === "number") {
@@ -47,7 +47,7 @@ const YearSelection: React.FC<ItemProps> = ({ selectedYear, setSelectedYear }) =
 			</Heading>
 			<Tabs
 				onChange={(index) => {
-					setdAccordionIndex(null);
+					setdAccordionIndex(-1);
 					setTabIndex(index);
 				}}>
 				<TabList>
