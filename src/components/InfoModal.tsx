@@ -8,14 +8,13 @@ import {
 	ModalCloseButton,
 	useDisclosure,
 	Button,
-	Text,
 } from "@chakra-ui/react";
-import { FC, MouseEventHandler } from "react";
+import { FC, ReactNode } from "react";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 interface InfoModalProps {
 	title: string;
-	infoText: string;
+	infoText: ReactNode;
 }
 
 const InfoModal: FC<InfoModalProps> = ({ title, infoText }) => {
