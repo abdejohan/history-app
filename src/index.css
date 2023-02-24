@@ -76,6 +76,19 @@
 	background-color: black;
 }
 
+.scroll_panel::-webkit-scrollbar {
+	width: 4px;
+}
+
+.scroll_panel::-webkit-scrollbar-track {
+	width: 6px;
+}
+
+.scroll_panel::-webkit-scrollbar-thumb {
+	background: #2b6cb0;
+	border-radius: "24px";
+}
+
 @media (prefers-color-scheme: light) {
 	:root {
 		color: #213547;

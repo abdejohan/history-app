@@ -4,6 +4,7 @@ import {
 	TabPanels,
 	Tab,
 	Box,
+	Text,
 	TabPanel,
 	Container,
 	Accordion,
@@ -12,14 +13,40 @@ import {
 	AccordionPanel,
 	AccordionIcon,
 	Heading,
+	useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
+import InfoModal from "./InfoModal";
 
 interface ItemProps {
 	selectedYear: any;
 	setSelectedYear: any;
 }
 
+const terminologyHelp = (
+	<>
+		<Heading size='xs'>BC and AD</Heading>
+		<Text fontSize='sm'>
+			The idea to count years from the birth of Jesus Christ was first proposed in the
+			year 525 by Dionysius Exiguus, a Christian monk. Standardized under the Julian and
+			Gregorian calendars, the system spread throughout Europe and the Christian world
+			during the centuries that followed. AD stands for Anno Domini, Latin for “in the
+			year of the Lord”, while BC stands for “before Christ”.
+		</Text>
+		<Heading size='xs' mt='4'>
+			BCE and CE
+		</Heading>
+		<Text fontSize='sm'>
+			CE stands for “common (or current) era”, while BCE stands for “before the common (or
+			current) era”. These abbreviations have a shorter history than BC and AD, although
+			they still date from at least the early 1700s. They have been in frequent use by
+			Jewish academics for more than 100 years, but became more widespread in the later
+			part of the 20th century, replacing BC/AD in a number of fields, notably science and
+			academia.
+		</Text>
+	</>
+);
 const centuriesBCE = Array(51)
 	.fill(null)
 	.map((item, index) => index * 100)
@@ -32,6 +59,7 @@ const centuriesCE = Array(21)
 const YearSelection: React.FC<ItemProps> = ({ selectedYear, setSelectedYear }) => {
 	const [tabIndex, setTabIndex] = useState<number>(0);
 	const [accordionIndex, setdAccordionIndex] = useState<number | number[]>();
+	const { onOpen } = useDisclosure();
 
 	useEffect(() => {
 		if (typeof accordionIndex === "number") {
@@ -50,25 +78,18 @@ const YearSelection: React.FC<ItemProps> = ({ selectedYear, setSelectedYear }) =
 					setdAccordionIndex(-1);
 					setTabIndex(index);
 				}}>
-				<TabList>
-					<Tab>BCE / BC</Tab>
-					<Tab>CE / AC</Tab>
+				<TabList
+					display='flex'
+					justifyContent='space-between'
+					alignItems='center'
+					paddingRight={10}>
+					<Box display='flex'>
+						<Tab>BCE / BC</Tab>
+						<Tab>CE / AC</Tab>
+					</Box>
+					<InfoModal title='What is what?' infoText={terminologyHelp} />
 				</TabList>
-				<TabPanels
-					overflowY='scroll'
-					h='50vh'
-					css={{
-						"&::-webkit-scrollbar": {
-							width: "4px",
-						},
-						"&::-webkit-scrollbar-track": {
-							width: "6px",
-						},
-						"&::-webkit-scrollbar-thumb": {
-							background: "#2B6CB0",
-							borderRadius: "24px",
-						},
-					}}>
+				<TabPanels overflowY='scroll' h='50vh' className='scroll_panel'>
 					<TabPanel>
 						<Accordion
 							index={accordionIndex}
