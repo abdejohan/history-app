@@ -1,12 +1,8 @@
-import { Box, Flex, Heading, Container, Text, Stack } from "@chakra-ui/react";
-import { useState } from "react";
-import Event from "../components/Event";
+import { Flex, Heading, Text } from "@chakra-ui/react";
+import DisplayEvents from "../components/DisplayEvents";
 import YearSelection from "../components/YearSelection";
-import { HistoryEvent } from "../types";
 
 function Home() {
-	const [selectedYear, setSelectedYear] = useState<number>();
-
 	return (
 		<Flex direction='column' p={10}>
 			<Flex direction='column' borderWidth={2} borderRadius={10}>
@@ -22,7 +18,10 @@ function Home() {
 					might find this site useful. Enjoy!
 				</Text>
 			</Flex>
-			<YearSelection selectedYear={selectedYear} setSelectedYear={setSelectedYear} />
+			<Flex>
+				<YearSelection />
+				<DisplayEvents />
+			</Flex>
 		</Flex>
 	);
 }

@@ -25,57 +25,6 @@
 	margin: 20px 0px;
 }
 
-.line_wrapper {
-	width: fit-content;
-	padding: 5px;
-}
-
-.numbers_wrapper {
-	position: relative;
-	height: 50px;
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: center;
-	align-items: center;
-}
-
-.line {
-	height: 50px;
-	display: flex;
-	flex-grow: 2;
-	flex: 1;
-	background-color: black;
-	height: 5px;
-}
-
-.number {
-	justify-content: center;
-}
-
-.number_wrapper_with_marker:last-child {
-	padding: 0px;
-}
-
-.number_wrapper_with_marker:first-child {
-	padding: 0px;
-}
-
-.number_wrapper_with_marker {
-	padding: 0px 20px;
-	position: relative;
-	top: -20px;
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	align-items: center;
-}
-
-.marker {
-	height: 20px;
-	width: 4px;
-	background-color: black;
-}
-
 .scroll_panel::-webkit-scrollbar {
 	width: 4px;
 }

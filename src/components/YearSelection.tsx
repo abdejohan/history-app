@@ -5,6 +5,7 @@ import {
 	Tab,
 	Box,
 	Text,
+	Container,
 	TabPanel,
 	Flex,
 	Accordion,
@@ -15,15 +16,9 @@ import {
 	Heading,
 	useDisclosure,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { FC, useEffect, useState } from "react";
 import InfoModal from "./InfoModal";
 import { terminologyHelp } from "../utils";
-
-interface ItemProps {
-	selectedYear: any;
-	setSelectedYear: any;
-}
 
 const centuriesBCE = Array(51)
 	.fill(null)
@@ -34,10 +29,10 @@ const centuriesCE = Array(21)
 	.fill(null)
 	.map((item, index) => (index === 0 ? 1 : index * 100));
 
-const YearSelection: React.FC<ItemProps> = ({ selectedYear, setSelectedYear }) => {
+const YearSelection: FC = () => {
 	const [tabIndex, setTabIndex] = useState<number>(0);
+	const [selectedYear, setSelectedYear] = useState<number>();
 	const [accordionIndex, setdAccordionIndex] = useState<number | number[]>();
-	const { onOpen } = useDisclosure();
 
 	useEffect(() => {
 		if (typeof accordionIndex === "number") {
@@ -47,7 +42,7 @@ const YearSelection: React.FC<ItemProps> = ({ selectedYear, setSelectedYear }) =
 	}, [accordionIndex]);
 
 	return (
-		<Flex borderWidth={1}>
+		<Container borderWidth={1}>
 			<Heading as='h2' size='md' noOfLines={1}>
 				SELECT A TIME PERIOD
 			</Heading>
@@ -124,7 +119,7 @@ const YearSelection: React.FC<ItemProps> = ({ selectedYear, setSelectedYear }) =
 					</TabPanel>
 				</TabPanels>
 			</Tabs>
-		</Flex>
+		</Container>
 	);
 };
 
