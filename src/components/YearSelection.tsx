@@ -42,7 +42,7 @@ const YearSelection: FC = () => {
 	}, [accordionIndex]);
 
 	return (
-		<Container borderWidth={1}>
+		<Flex maxW='400' direction='column'>
 			<Heading as='h2' size='md' noOfLines={1}>
 				SELECT A TIME PERIOD
 			</Heading>
@@ -58,11 +58,11 @@ const YearSelection: FC = () => {
 					paddingRight={10}>
 					<Box display='flex'>
 						<Tab>BCE / BC</Tab>
-						<Tab>CE / AC</Tab>
+						<Tab>CE / AD</Tab>
 					</Box>
 					<InfoModal title='What is what?' infoText={terminologyHelp} />
 				</TabList>
-				<TabPanels overflowY='scroll' h='50vh' className='scroll_panel'>
+				<TabPanels overflowY='scroll' h='300' w='1000' className='scroll_panel'>
 					<TabPanel>
 						<Accordion
 							index={accordionIndex}
@@ -119,7 +119,7 @@ const YearSelection: FC = () => {
 					</TabPanel>
 				</TabPanels>
 			</Tabs>
-		</Container>
+		</Flex>
 	);
 };
 
