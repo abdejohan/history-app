@@ -5,7 +5,7 @@
 	margin: 40px 0;
 
 	&::after {
-		background-color: #2b6cb0;
+		background-color: $secondary-color;
 		content: "";
 		position: absolute;
 		left: calc(50% - 2px);
@@ -17,7 +17,7 @@
 .timeline-item-content {
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 	border-radius: 5px;
-	background-color: #fff;
+	background-color: $alternative-bg-color;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
@@ -28,8 +28,8 @@
 	text-align: right;
 
 	& .circle {
-		background-color: #fff;
-		border: 3px solid #2b6cb0;
+		background-color: $primary-bg-color;
+		border: 3px solid $secondary-color;
 		border-radius: 50%;
 		position: absolute;
 		top: calc(50% - 10px);
@@ -42,7 +42,7 @@
 	/* This is the arrow that points towards the timeline circle */
 	&::after {
 		content: " ";
-		background-color: #fff;
+		background-color: $alternative-bg-color;
 		box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
 		position: absolute;
 		right: -7.5px;
