@@ -4,8 +4,6 @@ import {
 	TabPanels,
 	Tab,
 	Box,
-	Text,
-	Container,
 	TabPanel,
 	Flex,
 	Accordion,
@@ -14,7 +12,6 @@ import {
 	AccordionPanel,
 	AccordionIcon,
 	Heading,
-	useDisclosure,
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import InfoModal from "./InfoModal";
@@ -42,7 +39,7 @@ const YearSelection: FC = () => {
 	}, [accordionIndex]);
 
 	return (
-		<Flex maxW='400' direction='column'>
+		<Flex maxW='400' direction='column' borderWidth={1}>
 			<Heading as='h2' size='md' noOfLines={1}>
 				SELECT A TIME PERIOD
 			</Heading>
@@ -62,7 +59,7 @@ const YearSelection: FC = () => {
 					</Box>
 					<InfoModal title='Abbreviations' infoText={terminologyHelp} />
 				</TabList>
-				<TabPanels overflowY='scroll' h='300' w='1000' className='scroll_panel'>
+				<TabPanels overflowY='scroll' h='300' w='1000' className='scroll-panel'>
 					<TabPanel>
 						<Accordion
 							index={accordionIndex}

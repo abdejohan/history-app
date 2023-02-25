@@ -8,7 +8,7 @@ interface TimelineProps {
 
 const TimelineItem: FC<TimelineProps> = ({ event: { title, year, text, link } }) => {
 	return (
-		<div className='timeline-item'>
+		<li className='timeline-item'>
 			<div className='timeline-item-content'>
 				<Heading>{title}</Heading>
 				<Text>{year}</Text>
@@ -20,7 +20,7 @@ const TimelineItem: FC<TimelineProps> = ({ event: { title, year, text, link } })
 				)}
 				<span className='circle' />
 			</div>
-		</div>
+		</li>
 	);
 };
 
