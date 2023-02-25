@@ -1,0 +1,33 @@
+.welcome-container {
+	display: flex;
+	flex-flow: column nowrap;
+
+	& h1 {
+		font-weight: bold;
+		font-size: 2.5rem;
+		line-height: 2rem;
+		text-transform: uppercase;
+
+		& span {
+			font-weight: bold;
+			font-size: inherit;
+			color: $secondary-color;
+		}
+	}
+
+	& h2 {
+		text-transform: uppercase;
+		font-size: 1.5rem;
+		margin-bottom: 10px;
+		opacity: 0.9;
+	}
+
+	& .welcome-paragraph-container {
+		max-width: 400px;
+
+		& p {
+			font-size: 1.5rem;
+			margin-bottom: 10px;
+		}
+	}
+}

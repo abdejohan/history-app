@@ -95,6 +95,78 @@ const timelineData = [
 			label: "Read more",
 		},
 	},
+	{
+		title: "Wrote my first blog post ever on Medium",
+		year: 1990,
+		text: "HELLO FROM THE OTHER SIDE",
+		link: {
+			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+			label: "Read more",
+		},
+	},
+	{
+		title: "Wrote my first blog post ever on Medium",
+		year: 1990,
+		text: "HELLO FROM THE OTHER SIDE",
+		link: {
+			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+			label: "Read more",
+		},
+	},
+	{
+		title: "Wrote my first blog post ever on Medium",
+		year: 1990,
+		text: "HELLO FROM THE OTHER SIDE",
+		link: {
+			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+			label: "Read more",
+		},
+	},
+	{
+		title: "Wrote my first blog post ever on Medium",
+		year: 1990,
+		text: "HELLO FROM THE OTHER SIDE",
+		link: {
+			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+			label: "Read more",
+		},
+	},
+	{
+		title: "Wrote my first blog post ever on Medium",
+		year: 1990,
+		text: "HELLO FROM THE OTHER SIDE",
+		link: {
+			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+			label: "Read more",
+		},
+	},
+	{
+		title: "Wrote my first blog post ever on Medium",
+		year: 1990,
+		text: "HELLO FROM THE OTHER SIDE",
+		link: {
+			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+			label: "Read more",
+		},
+	},
+	{
+		title: "Wrote my first blog post ever on Medium",
+		year: 1990,
+		text: "HELLO FROM THE OTHER SIDE",
+		link: {
+			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+			label: "Read more",
+		},
+	},
+	{
+		title: "Wrote my first blog post ever on Medium",
+		year: 1990,
+		text: "HELLO FROM THE OTHER SIDE",
+		link: {
+			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+			label: "Read more",
+		},
+	},
 ];
 
 export { terminologyHelp, timelineData };
