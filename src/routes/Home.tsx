@@ -4,7 +4,7 @@ import YearSelection from "../components/YearSelection";
 
 function Home() {
 	return (
-		<Flex direction='row' grow='1' maxH='100vh' maxW='100vw' p='20'>
+		<Flex direction='row' grow='1' h='100vh' w='100vw' p='20'>
 			<Flex direction='column'>
 				<Heading as='h1' size='lg' mb='4'>
 					Written History Timeline
