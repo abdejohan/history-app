@@ -60,7 +60,7 @@ const YearSelection: FC = () => {
 						<Tab>BCE / BC</Tab>
 						<Tab>CE / AD</Tab>
 					</Box>
-					<InfoModal title='What is what?' infoText={terminologyHelp} />
+					<InfoModal title='Abbreviations' infoText={terminologyHelp} />
 				</TabList>
 				<TabPanels overflowY='scroll' h='300' w='1000' className='scroll_panel'>
 					<TabPanel>
