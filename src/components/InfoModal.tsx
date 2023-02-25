@@ -22,8 +22,8 @@ const InfoModal: FC<InfoModalProps> = ({ title, infoText }) => {
 	return (
 		<>
 			<InfoOutlineIcon
-				w={4}
-				h={4}
+				w={6}
+				h={6}
 				onClick={() => onOpen()}
 				_hover={{ color: "#2B6CB0", cursor: "pointer" }}
 			/>

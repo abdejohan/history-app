@@ -12,8 +12,8 @@ const WelcomeInfo = () => (
 				Genghis Khan sack Baghdad?
 			</p>
 			<p>
-				If you just like me, could need a quick reminder of who was where and when, you
-				might find this site useful. Enjoy!
+				If you're just like me and could need a quick reminder of who was where and when,
+				you might find this useful. Enjoy!
 			</p>
 		</div>
 	</div>

@@ -1,0 +1,50 @@
+.select-century-container {
+	margin-top: 50px;
+	width: 400px;
+
+	& .scroll-tab-panel {
+		overflow-y: scroll;
+		height: 300px;
+	}
+
+	& .tab-container {
+		border-bottom: $primary-bg-color;
+		display: flex;
+		justify-content: space-between;
+		padding-right: 28px;
+		align-items: center;
+
+		& .tab-buttons-container {
+			display: flex;
+		}
+
+		& .tab-button {
+			font-size: 1.5rem;
+		}
+	}
+
+	& h3 {
+		font-size: 1.7rem;
+		font-weight: 600;
+	}
+
+	& h4 {
+		display: flex;
+		justify-items: space-between;
+		align-items: center;
+
+		& span {
+			width: 100%;
+			text-align: left;
+			font-size: 1.7rem;
+		}
+
+		& .chevron-down {
+			font-size: 2rem;
+		}
+	}
+
+	& .accordion-content {
+		font-size: 1.5rem;
+	}
+}

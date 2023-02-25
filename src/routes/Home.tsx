@@ -1,13 +1,13 @@
 import DisplayEvents from "../components/DisplayEvents";
 import WelcomeInfo from "../components/WelcomeInfo";
-import YearSelection from "../components/YearSelection";
+import SelectCentury from "../components/SelectCentury";
 
 function Home() {
 	return (
 		<section className='home-container'>
 			<section className='left-column-container'>
 				<WelcomeInfo />
-				<YearSelection />
+				<SelectCentury />
 			</section>
 			<DisplayEvents />
 		</section>

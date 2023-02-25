@@ -22,6 +22,15 @@ const terminologyHelp = (
 	</div>
 );
 
+const centuriesBCE = Array(51)
+	.fill(null)
+	.map((item, index) => index * 100)
+	.reverse();
+
+const centuriesCE = Array(21)
+	.fill(null)
+	.map((item, index) => (index === 0 ? 1 : index * 100));
+
 const timelineData = [
 	{
 		title: "Wrote my first blog post ever on Medium",
@@ -169,4 +178,4 @@ const timelineData = [
 	},
 ];
 
-export { terminologyHelp, timelineData };
+export { terminologyHelp, timelineData, centuriesBCE, centuriesCE };
