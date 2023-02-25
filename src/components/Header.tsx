@@ -1,18 +1,21 @@
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link } from "@chakra-ui/react";
+import { Flex, Link } from "@chakra-ui/react";
 
 const Header = () => {
 	return (
-		<header>
+		<Flex as='header'>
 			<nav>
-				<Link as={ReactRouterLink} to='/' px='4'>
+				<Link as={ReactRouterLink} to='/'>
 					Home
 				</Link>
-				<Link as={ReactRouterLink} to='/admin' px='4'>
+				<Link as={ReactRouterLink} to='/admin'>
 					Add Event
 				</Link>
+				<Link as={ReactRouterLink} to='/admin'>
+					Contact
+				</Link>
 			</nav>
-		</header>
+		</Flex>
 	);
 };
 
