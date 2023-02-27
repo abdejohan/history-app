@@ -1,0 +1,35 @@
+.admin-container {
+	font-size: 2rem;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+
+	& .new-event-form {
+		font-size: 2rem;
+		min-width: 350px;
+
+		& label {
+			font-size: 2rem;
+		}
+
+		& input {
+			font-size: 2rem;
+			height: 40px;
+		}
+
+		textarea {
+			font-size: 2rem;
+		}
+
+		& .error-message {
+			font-size: 1.2rem;
+		}
+
+		& .submit-button {
+			font-size: 2rem;
+			width: 100%;
+			padding: 20px;
+		}
+	}
+}
