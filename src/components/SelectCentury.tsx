@@ -46,7 +46,7 @@ const SelectCentury: FC = () => {
 							CE / AD
 						</Tab>
 					</div>
-					<InfoModal title='Abbreviations' infoText={terminologyHelp} />
+					<InfoModal infoText={terminologyHelp} />
 				</TabList>
 				<TabPanels className='scroll-tab-panel scroll-panel'>
 					<TabPanel>
