@@ -10,18 +10,16 @@
 		}
 	}
 
-	& h2 {
+	& h3 {
 		text-transform: uppercase;
-		font-size: 1.5rem;
-		margin-bottom: 10px;
-		opacity: 0.9;
+		margin-bottom: 40px;
+		opacity: 0.8;
 	}
 
 	& .welcome-paragraph-container {
 		max-width: 400px;
 
 		& p {
-			font-size: 1.5rem;
 			margin-bottom: 10px;
 		}
 	}

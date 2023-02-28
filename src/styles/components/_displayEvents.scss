@@ -1,10 +1,10 @@
 .timeline-container {
 	padding: 0px;
 	display: flex;
-	flex-grow: 1;
-	padding-top: 100px;
-	max-width: 70vw;
 	flex-flow: column nowrap;
+	flex-grow: 1;
+	justify-content: flex-start;
+	max-width: 5 0vw;
 
 	& h2 {
 		text-align: center;
@@ -16,7 +16,7 @@
 	}
 
 	& .scroll-container {
-		height: 70vh;
+		height: 80vh;
 		overflow-y: scroll;
 	}
 }

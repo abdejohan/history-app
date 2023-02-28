@@ -1,6 +1,15 @@
 .home-container {
 	display: flex;
 	flex-flow: row nowrap;
-	justify-content: flex-end;
-	align-items: center;
+	justify-content: space-between;
+	align-items: start;
+	padding: 20px;
+	padding-right: 0px;
+
+	& .left-column-container {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: flex-end;
+		padding-left: 50px;
+	}
 }
