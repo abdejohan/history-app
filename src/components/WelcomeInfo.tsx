@@ -4,7 +4,7 @@ const WelcomeInfo = () => {
 			<h1>
 				Timeline: <span>Written History</span>
 			</h1>
-			<h2>History is fun! But sometimes confusing...</h2>
+			<h3>History is fun! But sometimes confusing...</h3>
 			<div className='welcome-paragraph-container'>
 				<p>I love history but I find myself having a hard time remembering it all.</p>
 				<p>
