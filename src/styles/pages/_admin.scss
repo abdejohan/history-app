@@ -11,42 +11,56 @@
 		text-decoration: underline;
 	}
 
-	& h2 {
-		margin-bottom: 20px;
-		text-align: start;
-	}
-
-	& .new-event-form {
-		display: flex !important;
-		flex-flow: column nowrap !important;
-		flex-grow: 1 !important;
-		font-size: 2rem;
+	& .form-container {
+		border: 2px solid white;
+		background-color: #263159;
 		width: 100%;
 		min-width: 350px;
-		max-width: 650px;
-		gap: 30px;
-
-		& label {
-			font-size: 2rem;
+		max-width: 800px;
+		border-radius: 20px;
+		padding: 50px;
+		& h2 {
+			margin: 20px;
+			text-align: center;
 		}
 
-		& input {
-			font-size: 2rem;
-			height: 40px;
-		}
-
-		textarea {
-			font-size: 2rem;
-		}
-
-		& .error-message {
-			font-size: 1.5rem;
-		}
-
-		& .submit-button {
-			font-size: 2rem;
-			width: 100%;
+		& .new-event-form {
+			display: flex;
+			flex-flow: column nowrap;
+			gap: 30px;
 			padding: 20px;
+
+			& label {
+				font-size: 2rem;
+
+				& span {
+					font-size: inherit;
+					color: $secondary-color;
+				}
+			}
+
+			& input {
+				font-size: 2rem;
+				height: 40px;
+			}
+
+			& .increment {
+				color: $primary-color;
+			}
+
+			textarea {
+				font-size: 2rem;
+			}
+
+			& .error-message {
+				font-size: 1.5rem;
+			}
+
+			& .submit-button {
+				font-size: 2rem;
+				width: 100%;
+				padding: 20px;
+			}
 		}
 	}
 }

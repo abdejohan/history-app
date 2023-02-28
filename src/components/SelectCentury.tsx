@@ -3,15 +3,12 @@ import {
 	TabList,
 	TabPanels,
 	Tab,
-	Box,
 	TabPanel,
-	Flex,
 	Accordion,
 	AccordionItem,
 	AccordionButton,
 	AccordionPanel,
 	AccordionIcon,
-	Heading,
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import InfoModal from "./InfoModal";
