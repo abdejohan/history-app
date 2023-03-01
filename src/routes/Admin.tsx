@@ -50,23 +50,23 @@ function Admin() {
 				<h2>Create new event</h2>
 				<form onSubmit={handleSubmit(onSubmit)} className='new-event-form'>
 					{/* TITLE */}
-					<FormControl isInvalid={errors.title}>
+					<FormControl isInvalid={errors.eventTitle}>
 						<FormLabel htmlFor='title'>
 							Title <span>*</span>
 						</FormLabel>
 						<Input
 							type='text'
-							{...register("title", {
+							{...register("eventTitle", {
 								required: "This field is required",
 								minLength: { value: 5, message: "Minimum length of 5" },
 							})}
 						/>
 						<FormErrorMessage className='error-message'>
-							{errors.title && errors.title.message}
+							{errors.eventTitle && errors.eventTitle.message}
 						</FormErrorMessage>
 					</FormControl>
 					{/* YEAR */}
-					<FormControl isInvalid={errors.year}>
+					<FormControl isInvalid={errors.eventYear}>
 						<FormLabel htmlFor='year'>
 							Year <span>*</span>
 						</FormLabel>
@@ -76,7 +76,7 @@ function Admin() {
 							min={-5000}
 							max={Number(new Date().getFullYear())}>
 							<NumberInputField
-								{...register("year", {
+								{...register("eventYear", {
 									required: "This field is required",
 									valueAsNumber: true,
 									max: {
@@ -95,7 +95,7 @@ function Admin() {
 							</NumberInputStepper>
 						</NumberInput>
 						<FormErrorMessage className='error-message'>
-							{errors.year && errors.year.message}
+							{errors.eventYear && errors.eventYear.message}
 						</FormErrorMessage>
 					</FormControl>
 					{/* TEXT */}

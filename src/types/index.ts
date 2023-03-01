@@ -1,6 +1,6 @@
 type HistoryEvent = {
-	title: string;
-	year: number;
+	eventYear: number;
+	eventTitle: string;
 	text: string;
 	url: string;
 	// image: any;
