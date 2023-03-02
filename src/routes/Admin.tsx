@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { saveDataToDB } from "../database";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HistoryEvent } from "../types";
+import BasicTabs from "../components/BasicTabs";
 import {
 	FormErrorMessage,
 	FormLabel,
@@ -12,13 +13,22 @@ import {
 	NumberInput,
 	NumberInputField,
 	NumberInputStepper,
+	Switch,
 	NumberIncrementStepper,
 	NumberDecrementStepper,
 } from "@chakra-ui/react";
 
+function calculateCentury(era: string, year: string): string {
+	if (year.length > 3) return year.slice(0, 2) + "00" + era;
+	if (year.length === 3) return year.slice(0, 1) + "00" + era;
+	return "1" + era;
+}
+
 function Admin() {
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [successMessage, setSuccessMessage] = useState<string>();
+	const [selectedEra, setSelectedEra] = useState<string>("BCE");
+	const [checked, setChecked] = useState<boolean>(false);
 	const {
 		register,
 		getValues,
@@ -29,13 +39,20 @@ function Admin() {
 
 	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
 		const values = getValues();
-
 		setErrorMessage(undefined);
 		setSuccessMessage(undefined);
 
+		checked && values.endYear !== 0 ? null : delete values.endYear;
+		const valuesToSubmit = {
+			...values,
+			century: calculateCentury(selectedEra, values.startYear.toString()),
+		};
+
 		try {
-			await saveDataToDB("Events", values);
+			console.log(valuesToSubmit);
+			await saveDataToDB("Events", valuesToSubmit);
 			setSuccessMessage("Succesfully saved.");
+			setChecked(false);
 			reset(); // Clears the input fields
 		} catch (error) {
 			console.log(error);
@@ -65,39 +82,70 @@ function Admin() {
 							{errors.eventTitle && errors.eventTitle.message}
 						</FormErrorMessage>
 					</FormControl>
-					{/* YEAR */}
-					<FormControl isInvalid={errors.eventYear}>
-						<FormLabel htmlFor='year'>
-							Year <span>*</span>
+					{/* CENTURY */}
+					<div>
+						<FormLabel htmlFor='century'>
+							Time of event <span>*</span>
 						</FormLabel>
-						<NumberInput
-							clampValueOnBlur={false}
-							step={1}
-							min={-5000}
-							max={Number(new Date().getFullYear())}>
-							<NumberInputField
-								{...register("eventYear", {
-									required: "This field is required",
-									valueAsNumber: true,
-									max: {
-										value: Number(new Date().getFullYear()),
-										message: "Wow! We are not here yet :/",
-									},
-									min: {
-										value: -5000,
-										message: "Too far back, max -5000 years",
-									},
-								})}
-							/>
-							<NumberInputStepper>
-								<NumberIncrementStepper className='increment' />
-								<NumberDecrementStepper className='increment' />
-							</NumberInputStepper>
-						</NumberInput>
-						<FormErrorMessage className='error-message'>
-							{errors.eventYear && errors.eventYear.message}
-						</FormErrorMessage>
-					</FormControl>
+						<div style={{ borderWidth: 1, borderRadius: 5, padding: "10px" }}>
+							<div className='century-container'>
+								<BasicTabs onChange={(value) => setSelectedEra(value)} />
+								{/* START YEAR */}
+								<FormControl>
+									<div className='year-title'>
+										<label htmlFor='year'>Year</label>
+										<div className='interval-container'>
+											<span>Interval</span>
+											<Switch id='isChecked' onChange={() => setChecked(!checked)} />
+										</div>
+									</div>
+									<FormControl isInvalid={errors.startYear}>
+										<NumberInput clampValueOnBlur={false} step={1}>
+											<NumberInputField
+												{...register("startYear", {
+													required: "This field is required",
+													valueAsNumber: true,
+													min: { value: 1, message: "Value cant be smaller than 1" },
+												})}
+											/>
+											<NumberInputStepper>
+												<NumberIncrementStepper className='increment' />
+												<NumberDecrementStepper className='increment' />
+											</NumberInputStepper>
+										</NumberInput>
+										<FormErrorMessage className='error-message'>
+											{errors.startYear && errors.startYear.message}
+										</FormErrorMessage>
+									</FormControl>
+								</FormControl>
+
+								{/* END YEAR */}
+								<FormControl isInvalid={errors.endYear}>
+									{checked && (
+										<>
+											<label htmlFor='year'>End year</label>
+											<NumberInput defaultValue={0} clampValueOnBlur={false} step={1}>
+												<NumberInputField
+													{...register("endYear", {
+														required: "This field is required",
+														valueAsNumber: true,
+														min: { value: 1, message: "Value cant be smaller than 1." },
+													})}
+												/>
+												<NumberInputStepper>
+													<NumberIncrementStepper className='increment' />
+													<NumberDecrementStepper className='increment' />
+												</NumberInputStepper>
+											</NumberInput>
+											<FormErrorMessage className='error-message'>
+												{errors.endYear && errors.endYear.message}
+											</FormErrorMessage>
+										</>
+									)}
+								</FormControl>
+							</div>
+						</div>
+					</div>
 					{/* TEXT */}
 					<FormControl isInvalid={errors.text}>
 						<FormLabel htmlFor='text'>
@@ -106,10 +154,7 @@ function Admin() {
 						<Textarea
 							{...register("text", {
 								required: "This field is required",
-								minLength: {
-									value: 25,
-									message: "Minimum of 25 characters.",
-								},
+								minLength: { value: 25, message: "Minimum of 25 characters." },
 							})}
 							rows={15}
 						/>
@@ -120,7 +165,6 @@ function Admin() {
 					{/* LINK */}
 					<FormControl isInvalid={errors.url}>
 						<FormLabel htmlFor='url'>Read more (url)</FormLabel>
-						<p>Read more (url)</p>
 						<Input type='text' {...register("url")} />
 					</FormControl>
 					{/* (
@@ -134,7 +178,6 @@ function Admin() {
 						<FormErrorMessage className="error-message">{errors.image && errors.text.message}</FormErrorMessage>
 					</FormControll>
 					) */}
-
 					<Button
 						mt={4}
 						colorScheme='teal'

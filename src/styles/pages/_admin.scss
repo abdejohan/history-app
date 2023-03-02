@@ -61,6 +61,35 @@
 				width: 100%;
 				padding: 20px;
 			}
+
+			& .century-container {
+				display: flex;
+				justify-content: center;
+				gap: 50px;
+
+				& .year-wrapper {
+					border: 1px solid red;
+					display: flex;
+					flex-grow: 2;
+					flex-flow: column nowrap;
+				}
+
+				& .year-title {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+
+					& .interval-container {
+						align-self: flex-start;
+						display: flex;
+						align-items: center;
+						gap: 10px;
+						& span {
+							font-size: 1.3rem !important;
+						}
+					}
+				}
+			}
 		}
 	}
 }

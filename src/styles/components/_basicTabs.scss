@@ -1,0 +1,39 @@
+.basic-tabs-container {
+	display: flex;
+
+	& .tab-container {
+		border-bottom: $primary-bg-color;
+		display: flex;
+		justify-content: flex-start;
+		flex-flow: column nowrap;
+		align-items: center;
+
+		& .tab-buttons-container {
+			display: flex;
+		}
+
+		& .tab-button {
+			font-size: 1.5rem;
+			padding-left: 0px;
+		}
+	}
+
+	& .tab-panel {
+		display: flex;
+		flex-grow: 2;
+		padding: 0px;
+
+		& .select {
+			font-size: 2rem;
+			height: fit-content;
+			padding: 8px;
+		}
+
+		& .select-option {
+			font-size: 2rem;
+			height: fit-content;
+			background-color: $primary-bg-color;
+			padding: 8px;
+		}
+	}
+}
