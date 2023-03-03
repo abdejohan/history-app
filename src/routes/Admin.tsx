@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { saveDataToDB } from "../database";
+import { useState } from "react";
+import { saveEventToDB } from "../database";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HistoryEvent } from "../types";
-import BasicTabs from "../components/BasicTabs";
 import {
 	FormErrorMessage,
 	FormLabel,
@@ -13,22 +12,12 @@ import {
 	NumberInput,
 	NumberInputField,
 	NumberInputStepper,
-	Switch,
 	NumberIncrementStepper,
 	NumberDecrementStepper,
 } from "@chakra-ui/react";
+import { removeFalsyValues, yearToCentury, generateUniqueSortKey } from "../utils";
 
-function calculateCentury(era: string, year: string): string {
-	if (year.length > 3) return year.slice(0, 2) + "00" + era;
-	if (year.length === 3) return year.slice(0, 1) + "00" + era;
-	return "1" + era;
-}
-
-function Admin() {
-	const [errorMessage, setErrorMessage] = useState<string>();
-	const [successMessage, setSuccessMessage] = useState<string>();
-	const [selectedEra, setSelectedEra] = useState<string>("BCE");
-	const [checked, setChecked] = useState<boolean>(false);
+const Admin = () => {
 	const {
 		register,
 		getValues,
@@ -36,24 +25,25 @@ function Admin() {
 		reset,
 		formState: { errors, isSubmitting, isValid, isDirty },
 	} = useForm<HistoryEvent>({ mode: "onBlur" });
+	const [errorMessage, setErrorMessage] = useState<string>();
+	const [successMessage, setSuccessMessage] = useState<string>();
 
 	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
+		setErrorMessage(undefined); // Makes sure no old messages are being displayed
+		setSuccessMessage(undefined); // Makes sure no old messages are being displayed
 		const values = getValues();
-		setErrorMessage(undefined);
-		setSuccessMessage(undefined);
-
-		checked && values.endYear !== 0 ? null : delete values.endYear;
-		const valuesToSubmit = {
-			...values,
-			century: calculateCentury(selectedEra, values.startYear.toString()),
-		};
+		const cleanValues = removeFalsyValues(values);
+		const eventObject = {
+			...cleanValues,
+			century: yearToCentury(values.year),
+			eventYearHash: generateUniqueSortKey(values.year, values.title),
+		} as HistoryEvent;
 
 		try {
-			console.log(valuesToSubmit);
-			await saveDataToDB("Events", valuesToSubmit);
+			await saveEventToDB("HistoricalEvents", eventObject);
 			setSuccessMessage("Succesfully saved.");
-			setChecked(false);
 			reset(); // Clears the input fields
+			console.log(eventObject);
 		} catch (error) {
 			console.log(error);
 			setErrorMessage("Could not save, try again");
@@ -67,85 +57,69 @@ function Admin() {
 				<h2>Create new event</h2>
 				<form onSubmit={handleSubmit(onSubmit)} className='new-event-form'>
 					{/* TITLE */}
-					<FormControl isInvalid={errors.eventTitle}>
+					<FormControl isInvalid={errors.title}>
 						<FormLabel htmlFor='title'>
 							Title <span>*</span>
 						</FormLabel>
 						<Input
 							type='text'
-							{...register("eventTitle", {
+							{...register("title", {
 								required: "This field is required",
 								minLength: { value: 5, message: "Minimum length of 5" },
 							})}
 						/>
 						<FormErrorMessage className='error-message'>
-							{errors.eventTitle && errors.eventTitle.message}
+							{errors.title && errors.title.message}
 						</FormErrorMessage>
 					</FormControl>
-					{/* CENTURY */}
-					<div>
-						<FormLabel htmlFor='century'>
-							Time of event <span>*</span>
+					{/* START YEAR */}
+					<FormControl isInvalid={errors.year}>
+						<FormLabel>
+							Event year <span>*</span>
+							<p>
+								If the event took place before year 1, write the year as a negative number
+							</p>
+							<p style={{ marginBottom: "20px" }}>Example: Year 350 BCE = -350</p>
 						</FormLabel>
-						<div style={{ borderWidth: 1, borderRadius: 5, padding: "10px" }}>
-							<div className='century-container'>
-								<BasicTabs onChange={(value) => setSelectedEra(value)} />
-								{/* START YEAR */}
-								<FormControl>
-									<div className='year-title'>
-										<label htmlFor='year'>Year</label>
-										<div className='interval-container'>
-											<span>Interval</span>
-											<Switch id='isChecked' onChange={() => setChecked(!checked)} />
-										</div>
-									</div>
-									<FormControl isInvalid={errors.startYear}>
-										<NumberInput clampValueOnBlur={false} step={1}>
-											<NumberInputField
-												{...register("startYear", {
-													required: "This field is required",
-													valueAsNumber: true,
-													min: { value: 1, message: "Value cant be smaller than 1" },
-												})}
-											/>
-											<NumberInputStepper>
-												<NumberIncrementStepper className='increment' />
-												<NumberDecrementStepper className='increment' />
-											</NumberInputStepper>
-										</NumberInput>
-										<FormErrorMessage className='error-message'>
-											{errors.startYear && errors.startYear.message}
-										</FormErrorMessage>
-									</FormControl>
-								</FormControl>
-
-								{/* END YEAR */}
-								<FormControl isInvalid={errors.endYear}>
-									{checked && (
-										<>
-											<label htmlFor='year'>End year</label>
-											<NumberInput defaultValue={0} clampValueOnBlur={false} step={1}>
-												<NumberInputField
-													{...register("endYear", {
-														required: "This field is required",
-														valueAsNumber: true,
-														min: { value: 1, message: "Value cant be smaller than 1." },
-													})}
-												/>
-												<NumberInputStepper>
-													<NumberIncrementStepper className='increment' />
-													<NumberDecrementStepper className='increment' />
-												</NumberInputStepper>
-											</NumberInput>
-											<FormErrorMessage className='error-message'>
-												{errors.endYear && errors.endYear.message}
-											</FormErrorMessage>
-										</>
-									)}
-								</FormControl>
-							</div>
-						</div>
-					</div>
+						<NumberInput clampValueOnBlur={false} step={1}>
+							<NumberInputField
+								{...register("year", {
+									required: "This field is required",
+									valueAsNumber: true,
+									min: { value: 1, message: "Value cant be smaller than 1" },
+								})}
+							/>
+							<NumberInputStepper>
+								<NumberIncrementStepper className='increment' />
+								<NumberDecrementStepper className='increment' />
+							</NumberInputStepper>
+						</NumberInput>
+						<FormErrorMessage className='error-message'>
+							{errors.year && errors.year.message}
+						</FormErrorMessage>
+					</FormControl>
+					{/* EVENT DURATION */}
+					<FormControl isInvalid={errors.duration}>
+						<FormLabel htmlFor='duration'>
+							Event duration
+							<p>If the event was ongoing for more than 1 year</p>
+						</FormLabel>
+						<NumberInput clampValueOnBlur={false} step={1}>
+							<NumberInputField
+								{...register("duration", {
+									valueAsNumber: true,
+									min: { value: 1, message: "Value cant be smaller than 1." },
+								})}
+							/>
+							<NumberInputStepper>
+								<NumberIncrementStepper className='increment' />
+								<NumberDecrementStepper className='increment' />
+							</NumberInputStepper>
+						</NumberInput>
+						<FormErrorMessage className='error-message'>
+							{errors.duration && errors.duration.message}
+						</FormErrorMessage>
+					</FormControl>
 					{/* TEXT */}
 					<FormControl isInvalid={errors.text}>
 						<FormLabel htmlFor='text'>
@@ -203,6 +177,6 @@ function Admin() {
 			</div>
 		</section>
 	);
-}
+};
 
 export default Admin;

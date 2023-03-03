@@ -8,12 +8,22 @@ const dynamodb = new DynamoDB.DocumentClient({
 });
 
 // Fetch data from DynamoDB
-const fetchDataFromDB = async (tableName: string) => {
+const fetchCenturyEvents = async (century: string, start: number, stop: number) => {
 	const params = {
-		TableName: tableName,
+		TableName: "Event",
+		KeyConditionExpression: "#c = :c and #eY between :start and :end",
+		ExpressionAttributeNames: {
+			"#c": "century",
+			"#eY": "eventYear",
+		},
+		ExpressionAttributeValues: {
+			":c": century,
+			":start": start,
+			":end": stop,
+		},
 	};
 	try {
-		const fetchedData = await dynamodb.scan(params).promise();
+		const fetchedData = await dynamodb.query(params).promise();
 		console.log("Successfully fetched data: ", fetchedData);
 		return fetchedData;
 	} catch (error) {
@@ -23,7 +33,7 @@ const fetchDataFromDB = async (tableName: string) => {
 };
 
 // Add data to DynamoDB
-const saveDataToDB = async (tableName: string, data: HistoryEvent) => {
+const saveEventToDB = async (tableName: string, data: HistoryEvent) => {
 	var params = {
 		TableName: tableName,
 		Item: data,
@@ -39,4 +49,4 @@ const saveDataToDB = async (tableName: string, data: HistoryEvent) => {
 	}
 };
 
-export { fetchDataFromDB, saveDataToDB };
+export { fetchCenturyEvents, saveEventToDB };

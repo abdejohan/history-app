@@ -1,11 +1,12 @@
 type HistoryEvent = {
 	century: string;
-	eventTitle: string;
-	startYear: number;
-	endYear?: number;
+	eventYearHash: string;
+	title: string;
+	description?: string;
 	text: string;
-	url: string;
-	// image: any;
+	url?: string;
+	year: number;
+	duration: number;
 };
 
 export type { HistoryEvent };
