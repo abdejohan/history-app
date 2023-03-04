@@ -10,16 +10,15 @@ const dynamodb = new DynamoDB.DocumentClient({
 // Fetch data from DynamoDB
 const fetchCenturyEvents = async (century: string, start: number, stop: number) => {
 	const params = {
-		TableName: "Event",
-		KeyConditionExpression: "#c = :c and #eY between :start and :end",
+		TableName: "HistoricalEvents",
+		KeyConditionExpression: "#c = :century and eventYearHash between :start and :end",
 		ExpressionAttributeNames: {
 			"#c": "century",
-			"#eY": "eventYear",
 		},
 		ExpressionAttributeValues: {
-			":c": century,
-			":start": start,
-			":end": stop,
+			":century": "1st century CE",
+			":start": "1",
+			":end": "10",
 		},
 	};
 	try {
