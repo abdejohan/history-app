@@ -2,20 +2,6 @@
 	display: flex;
 	flex-flow: column nowrap;
 
-	& h1 {
-		& span {
-			font-weight: bold;
-			font-size: inherit;
-			color: $secondary-color;
-		}
-	}
-
-	& h3 {
-		text-transform: uppercase;
-		margin-bottom: 40px;
-		opacity: 0.8;
-	}
-
 	& .welcome-paragraph-container {
 		max-width: 400px;
 

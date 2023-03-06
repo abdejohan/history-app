@@ -1,10 +1,6 @@
 const WelcomeInfo = () => {
 	return (
 		<div className='welcome-container'>
-			<h1>
-				Timeline: <span>ancient history</span>
-			</h1>
-			<h3>A collection of written historical events </h3>
 			<div className='welcome-paragraph-container'>
 				<h4>History is fun, but also overwhelming</h4>
 				<p>
