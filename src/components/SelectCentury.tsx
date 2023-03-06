@@ -1,104 +1,39 @@
-import {
-	Tabs,
-	TabList,
-	TabPanels,
-	Tab,
-	TabPanel,
-	Accordion,
-	AccordionItem,
-	AccordionButton,
-	AccordionPanel,
-	AccordionIcon,
-} from "@chakra-ui/react";
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Select } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import InfoModal from "./InfoModal";
-import { centuriesBCE, centuriesCE, terminologyHelp } from "../utils";
+import { centuriesBCE, centuriesCE, terminologyHelp, yearToCentury } from "../utils";
 
 const SelectCentury: FC = () => {
 	const [tabIndex, setTabIndex] = useState<number>(0);
 	const [selectedYear, setSelectedYear] = useState<number>();
-	const [accordionIndex, setdAccordionIndex] = useState<number | number[]>();
-
-	useEffect(() => {
-		if (typeof accordionIndex === "number") {
-			if (tabIndex === 0) console.log(centuriesBCE[accordionIndex]);
-			if (tabIndex === 1) console.log(centuriesCE[accordionIndex]);
-		}
-	}, [accordionIndex]);
 
 	return (
 		<section className='select-century-container'>
 			<h3>SELECT A TIME PERIOD</h3>
-			<Tabs
-				onChange={(index) => {
-					setdAccordionIndex(-1);
-					setTabIndex(index);
-				}}>
+			<Tabs onChange={(index) => setTabIndex(index)} variant='enclosed' size='lg'>
 				<TabList className='tab-container'>
-					<div className='tab-buttons-container'>
-						<Tab _selected={{ color: "#eb455f" }} className='tab-button'>
-							BCE / BC
-						</Tab>
-						<Tab _selected={{ color: "#eb455f" }} className='tab-button'>
-							CE / AD
-						</Tab>
-					</div>
+					<Tab
+						className='tab-button'
+						_selected={{ borderColor: "#eb455f", borderBottomColor: "#2b3467" }}>
+						BCE / BC
+					</Tab>
+					<Tab
+						className='tab-button'
+						_selected={{ borderColor: "#eb455f", borderBottomColor: "#2b3467" }}>
+						CE / AD
+					</Tab>
 					<InfoModal infoText={terminologyHelp} />
 				</TabList>
-				<TabPanels className='scroll-tab-panel scroll-panel'>
-					<TabPanel>
-						<Accordion
-							as='ul'
-							index={accordionIndex}
-							onChange={(index) => setdAccordionIndex(index)}>
-							{centuriesBCE.map((centurie, index) => {
-								if (centurie !== 0) {
-									return (
-										<AccordionItem key={index} as='li'>
-											<h4>
-												<AccordionButton>
-													<span>{centurie}</span>
-													<AccordionIcon className='chevron-down' />
-												</AccordionButton>
-											</h4>
-											<AccordionPanel className='accordion-content'>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-												eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-												enim ad minim veniam, quis nostrud exercitation ullamco laboris
-												nisi ut aliquip ex ea commodo consequat.
-											</AccordionPanel>
-										</AccordionItem>
-									);
-								}
-							})}
-						</Accordion>
-					</TabPanel>
-					<TabPanel>
-						<Accordion
-							as='ul'
-							index={accordionIndex}
-							onChange={(index) => setdAccordionIndex(index)}>
-							{centuriesCE.map((centurie, index) => {
-								return (
-									<AccordionItem key={index} as='li'>
-										<h4>
-											<AccordionButton>
-												<span>{centurie}</span>
-												<AccordionIcon className='chevron-down' />
-											</AccordionButton>
-										</h4>
-										<AccordionPanel className='accordion-content'>
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-											eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-											ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-											aliquip ex ea commodo consequat.
-										</AccordionPanel>
-									</AccordionItem>
-								);
-							})}
-						</Accordion>
-					</TabPanel>
-				</TabPanels>
+				<Select placeholder=' ' size='lg'>
+					{tabIndex === 0
+						? centuriesBCE.map((century, index) => {
+								if (century !== 0)
+									return <option value={century}>{yearToCentury(century)}</option>;
+						  })
+						: centuriesCE.map((century, index) => (
+								<option value={century}>{yearToCentury(century)}</option>
+						  ))}
+				</Select>
 			</Tabs>
 		</section>
 	);
