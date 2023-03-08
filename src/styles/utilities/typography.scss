@@ -1,23 +1,7 @@
-@font-face {
-	font-family: Poppins-ExtraBold;
-	src: url("../assets/fonts/Poppins-ExtraBold.ttf");
-}
-@font-face {
-	font-family: Poppins-Bold;
-	src: url("../assets/fonts/Poppins-Bold.ttf");
-}
-@font-face {
-	font-family: Poppins-SemiBold;
-	src: url("../assets/fonts/Poppins-SemiBold.ttf");
-}
-@font-face {
-	font-family: Poppins-Regular;
-	src: url("../assets/fonts/Poppins-Regular.ttf");
-}
-
 h1 {
 	font-size: 6rem;
 	line-height: 6.5rem;
+	font-size: $primary-color;
 	font-family: Poppins-ExtraBold;
 }
 
@@ -49,5 +33,6 @@ p {
 	opacity: 0.9;
 	font-size: 2.5rem;
 	line-height: 3.5rem;
+	font-size: $primary-color;
 	font-family: Poppins-Regular;
 }
