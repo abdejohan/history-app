@@ -1,0 +1,15 @@
+button {
+	font-family: Poppins-Medium;
+	background-color: $accent-color;
+	color: $primary-color;
+	font-size: 2rem;
+	padding: 15px 30px;
+	margin: 10px;
+	border-radius: 7px;
+	border: unset;
+
+	&:hover {
+		cursor: pointer;
+		background-color: $accent-color-hover;
+	}
+}

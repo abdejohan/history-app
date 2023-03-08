@@ -1,3 +1,4 @@
+@import "./utilities/fonts";
 @import "./utilities/variables";
 @import "./utilities/typography";
 @import "./layouts/layout";
@@ -10,6 +11,7 @@
 @import "./components/welcomeInfo";
 @import "./components/selectCentury";
 @import "./components/basicTabs";
+@import "./components/button";
 
 * {
 	box-sizing: border-box;
