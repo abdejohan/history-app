@@ -9,11 +9,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@chakra-ui/icons": "^2.0.17",
-		"@chakra-ui/react": "^2.5.1",
 		"aws-sdk": "^2.1321.0",
 		"crypto-js": "^4.1.1",
-		"framer-motion": "^9.1.6",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.43.2",

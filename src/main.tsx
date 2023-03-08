@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
 import Home from "./routes/Home";
 import Admin from "./routes/Admin";
-import { ChakraProvider } from "@chakra-ui/react";
 import "./styles/index.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./routes/ErrorPage";
@@ -25,7 +24,5 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-	<ChakraProvider>
-		<RouterProvider router={router} />
-	</ChakraProvider>
+	<RouterProvider router={router} />
 );
