@@ -34,7 +34,7 @@
 	.timeline-item-content {
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 		border-radius: 5px;
-		background-color: $alternative-bg-color;
+		background-color: $secondary-bg-color;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
@@ -80,7 +80,7 @@
 		/* This is the arrow that points towards the timeline circle */
 		&::after {
 			content: " ";
-			background-color: $alternative-bg-color;
+			background-color: $secondary-bg-color;
 			box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
 			position: absolute;
 			right: -7.5px;
