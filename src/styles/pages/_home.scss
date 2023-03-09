@@ -1,7 +1,14 @@
 .home-container {
-	height: 100vh;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
+}
+
+.full-page-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column nowrap;
+	height: 100vh;
 }

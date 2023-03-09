@@ -23,6 +23,11 @@ const terminologyHelp = (
 	</div>
 );
 
+const scrollToElement = (id: string) => {
+	const element = document.getElementById(id);
+	if (element) element.scrollIntoView({ behavior: "smooth" });
+};
+
 // Removes falsy values (null, undefined, 0, "") from an object.
 // 1. Convert the input object into an array of key-value pairs using Object.entries.
 // 2. Use the reduce method to iterate over the array and accumulate a new object with only the truthy key-value pairs.
@@ -55,7 +60,7 @@ function generateUniqueSortKey(year: number, title: string): string {
 
 // Takes a year as input and returns the century and era that the year falls in.
 // Input for year before the year 1 is given as negative number. Example: Year 250 BCE is passed to function as -250
-function yearToCentury(year: number): string {
+function formatCentury(year: number): string {
 	const century = Math.floor(Math.abs(year) / 100) + 1;
 	const suffix =
 		century % 10 === 1 && century % 100 !== 11
@@ -69,14 +74,15 @@ function yearToCentury(year: number): string {
 	return `${century}${suffix} century ${era}`;
 }
 
-const centuriesBCE = Array(51)
-	.fill(null)
-	.map((item, index) => index * 100)
-	.reverse();
-
-const centuriesCE = Array(21)
-	.fill(null)
-	.map((item, index) => (index === 0 ? 1 : index * 100));
+function getCenturies(): number[] {
+	const currentYear = new Date().getFullYear();
+	const startYear = -4999; // 5000 BCE
+	const centuries = [];
+	for (let year = startYear; year <= currentYear; year += 100) {
+		centuries.push(year);
+	}
+	return centuries;
+}
 
 const timelineData = [
 	{
@@ -228,9 +234,9 @@ const timelineData = [
 export {
 	terminologyHelp,
 	timelineData,
-	centuriesBCE,
-	centuriesCE,
 	removeFalsyValues,
-	yearToCentury,
+	formatCentury,
+	getCenturies,
 	generateUniqueSortKey,
+	scrollToElement,
 };

@@ -15,7 +15,7 @@ import {
 	NumberIncrementStepper,
 	NumberDecrementStepper,
 } from "@chakra-ui/react";
-import { removeFalsyValues, yearToCentury, generateUniqueSortKey } from "../utils";
+import { removeFalsyValues, generateUniqueSortKey, formatCentury } from "../utils";
 
 const Admin = () => {
 	const {
@@ -35,7 +35,7 @@ const Admin = () => {
 		const cleanValues = removeFalsyValues(values);
 		const eventObject = {
 			...cleanValues,
-			century: yearToCentury(values.year),
+			century: formatCentury(values.year),
 			eventYearHash: generateUniqueSortKey(values.year, values.title),
 		} as HistoryEvent;
 

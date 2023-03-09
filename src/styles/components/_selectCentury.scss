@@ -1,12 +1,14 @@
-.select-century-container {
-	& .tab-container {
-		margin-bottom: 2px;
-		border-bottom-color: $secondary-color;
-	}
-
+.select-century-section {
 	& select {
+		margin-top: 20px;
+		padding: 5px;
+		width: 100%;
+		border-radius: 5px;
+		color: black;
+		font-size: 1.5rem;
+		height: 40px;
+
 		& option {
-			background-color: $primary-bg-color;
 			font-size: 1.5rem;
 		}
 	}
