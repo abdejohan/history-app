@@ -60,7 +60,7 @@ function generateUniqueSortKey(year: number, title: string): string {
 
 // Takes a year as input and returns the century and era that the year falls in.
 // Input for year before the year 1 is given as negative number. Example: Year 250 BCE is passed to function as -250
-function formatCentury(year: number): string {
+function formatYearToCentury(year: number): string {
 	const century = Math.floor(Math.abs(year) / 100) + 1;
 	const suffix =
 		century % 10 === 1 && century % 100 !== 11
@@ -74,12 +74,12 @@ function formatCentury(year: number): string {
 	return `${century}${suffix} century ${era}`;
 }
 
-function getCenturies(): number[] {
+function generateAllCenturies(): string[] {
 	const currentYear = new Date().getFullYear();
 	const startYear = -4999; // 5000 BCE
 	const centuries = [];
 	for (let year = startYear; year <= currentYear; year += 100) {
-		centuries.push(year);
+		centuries.push(formatYearToCentury(year));
 	}
 	return centuries;
 }
@@ -235,8 +235,8 @@ export {
 	terminologyHelp,
 	timelineData,
 	removeFalsyValues,
-	formatCentury,
-	getCenturies,
+	formatYearToCentury as formatCentury,
+	generateAllCenturies as getCenturies,
 	generateUniqueSortKey,
 	scrollToElement,
 };

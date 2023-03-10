@@ -1,16 +1,20 @@
 import { FC } from "react";
-import { getCenturies, formatCentury } from "../utils";
-const centuriesAsNumbers = getCenturies();
+import { getCenturies } from "../utils";
+const centuries = getCenturies();
 
-const SelectCentury: FC = (): JSX.Element => {
+interface SelectedCenturyProps {
+	selected: (year: string) => void;
+}
+
+const SelectCentury: FC<SelectedCenturyProps> = ({ selected }): JSX.Element => {
 	return (
 		<section className='select-century-section'>
 			<h2>Select a century</h2>
-			<select>
-				<option value={0} />;
-				{centuriesAsNumbers.map((century) => (
+			<select onChange={(event) => selected(event.currentTarget.value)}>
+				<option value='' />;
+				{centuries.map((century) => (
 					<option key={century} value={century}>
-						{formatCentury(century)}
+						{century}
 					</option>
 				))}
 			</select>
