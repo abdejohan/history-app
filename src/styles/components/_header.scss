@@ -1,9 +1,11 @@
 header {
 	justify-content: center;
 	display: flex;
+	top: 0px;
 	width: 100%;
 	padding: 20px;
-	position: fixed;
+	position: sticky;
+	z-index: 1;
 	background-color: $primary-bg-color;
 	& nav {
 		& a {
