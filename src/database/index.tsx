@@ -1,4 +1,5 @@
-import DynamoDB from "aws-sdk/clients/dynamodb";
+import { AWSError } from "aws-sdk";
+import DynamoDB, { QueryOutput } from "aws-sdk/clients/dynamodb";
 import { HistoryEvent } from "../types";
 
 const dynamodb = new DynamoDB.DocumentClient({
@@ -8,7 +9,7 @@ const dynamodb = new DynamoDB.DocumentClient({
 });
 
 // Fetch data from DynamoDB
-const fetchCenturyEvents = async (century: string) => {
+const fetchCenturyEvents = async (century: string): Promise<QueryOutput | AWSError> => {
 	const params = {
 		TableName: "HistoricalEvents",
 		KeyConditionExpression: "#c = :century",
@@ -16,16 +17,15 @@ const fetchCenturyEvents = async (century: string) => {
 			"#c": "century",
 		},
 		ExpressionAttributeValues: {
-			":century": "1st century CE",
+			":century": century,
 		},
 	};
+
 	try {
 		const fetchedData = await dynamodb.query(params).promise();
-		console.log("Successfully fetched data: ", fetchedData);
 		return fetchedData;
 	} catch (error) {
-		console.log("Failed to fetch data", error);
-		return error;
+		throw error;
 	}
 };
 
