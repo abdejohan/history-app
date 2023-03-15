@@ -1,20 +1,25 @@
 import { FC } from "react";
-import { timelineData } from "../utils";
+import { HistoryEvent } from "../types";
+import ContentView from "./ContentView";
 import TimelineItem from "./TimelineItem";
 
-const DisplayEvents: FC = () => {
+// historyEvents.map((event) => <TimelineItem event={event} key={event.title} />)
+interface DisplayEventsProps {
+	century: string;
+	events: Array<HistoryEvent>;
+}
+
+const DisplayEvents: FC<DisplayEventsProps> = ({ events, century }) => {
 	return (
-		<section className='timeline-container'>
-			<h2>4th century BCE</h2>
-			<div className='scroll-container scroll-panel'>
-				<ul className='timeline-items-container'>
-					{timelineData.length > 0 &&
-						timelineData.map((event, index) => (
-							<TimelineItem event={event} key={index} />
-						))}
-				</ul>
-			</div>
-		</section>
+		<ContentView>
+			<h2 id='events' className='century-title'>
+				{century}
+			</h2>
+			<ul className='timeline-items-container'>
+				{events &&
+					events.map((event, index) => <TimelineItem event={event} key={index} />)}
+			</ul>
+		</ContentView>
 	);
 };
 

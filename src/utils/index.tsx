@@ -60,7 +60,7 @@ function generateUniqueSortKey(year: number, title: string): string {
 
 // Takes a year as input and returns the century and era that the year falls in.
 // Input for year before the year 1 is given as negative number. Example: Year 250 BCE is passed to function as -250
-function formatYearToCentury(year: number): string {
+function formatCentury(year: number): string {
 	const century = Math.floor(Math.abs(year) / 100) + 1;
 	const suffix =
 		century % 10 === 1 && century % 100 !== 11
@@ -74,169 +74,21 @@ function formatYearToCentury(year: number): string {
 	return `${century}${suffix} century ${era}`;
 }
 
-function generateAllCenturies(): string[] {
+function getCenturies(): string[] {
 	const currentYear = new Date().getFullYear();
 	const startYear = -4999; // 5000 BCE
 	const centuries = [];
 	for (let year = startYear; year <= currentYear; year += 100) {
-		centuries.push(formatYearToCentury(year));
+		centuries.push(formatCentury(year));
 	}
 	return centuries;
 }
 
-const timelineData = [
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-	{
-		title: "Wrote my first blog post ever on Medium",
-		year: 1990,
-		text: "Hello from the other side.",
-		link: {
-			url: "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
-			label: "Read more",
-		},
-	},
-];
-
 export {
 	terminologyHelp,
-	timelineData,
 	removeFalsyValues,
-	formatYearToCentury as formatCentury,
-	generateAllCenturies as getCenturies,
+	formatCentury,
+	getCenturies,
 	generateUniqueSortKey,
 	scrollToElement,
 };
