@@ -34,7 +34,7 @@
 	.timeline-item-content {
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 		border-radius: 5px;
-		background-color: $onBackground;
+		background-color: $background2;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
@@ -44,21 +44,16 @@
 		max-width: 70%;
 		text-align: right;
 
-		& h3 {
-			font-size: 1.6rem;
-			font-weight: 700;
-		}
-
 		& span {
 			color: $accent;
-			font-weight: bold;
-			margin-bottom: 10px;
+			margin-bottom: 15px;
 			font-size: 2rem;
 		}
 
 		& p {
 			padding: 5px 0px;
 			font-size: 1.5rem;
+			line-height: 2rem;
 		}
 
 		& .circle {
@@ -76,7 +71,7 @@
 		/* This is the arrow that points towards the timeline circle */
 		&::after {
 			content: " ";
-			background-color: $onBackground;
+			background-color: $background2;
 			box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
 			position: absolute;
 			right: -7.5px;

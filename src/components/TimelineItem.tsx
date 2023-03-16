@@ -1,4 +1,3 @@
-import { Heading, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import { HistoryEvent } from "../types";
 
@@ -6,16 +5,18 @@ interface TimelineProps {
 	event: HistoryEvent;
 }
 
-const TimelineItem: FC<TimelineProps> = ({ event: { title, year, text, link } }) => {
+const TimelineItem: FC<TimelineProps> = ({
+	event: { title, startYear, summary, url },
+}) => {
 	return (
 		<li className='timeline-item'>
 			<div className='timeline-item-content'>
-				<span>{year}</span>
-				<h3>{title}</h3>
-				<p>{text}</p>
-				{link && (
-					<a href={link.url} target='_blank' rel='noopener noreferrer'>
-						{link.label}
+				<span>Year: {parseInt(startYear)}</span>
+				<h4>{title}</h4>
+				<p>{summary}</p>
+				{url && (
+					<a href={url} target='_blank' rel='noopener noreferrer'>
+						Read more
 					</a>
 				)}
 				<span className='circle' />
