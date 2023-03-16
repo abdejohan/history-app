@@ -1,36 +1,34 @@
-import { Tabs, TabList, Tab } from "@chakra-ui/react";
-import { FC, useEffect, useState } from "react";
-import { centuriesBCE, centuriesCE } from "../utils";
+import { FC, ReactNode, useState } from "react";
 
 interface BasicTabsProps {
-	onChange: (era: string) => void;
+	onChange?: (era: string) => void;
+	tabs: Array<string>;
+	children?: ReactNode;
 }
 
-const BasicTabs: FC<BasicTabsProps> = ({ onChange }) => {
-	const [tabIndex, setTabIndex] = useState<number>(0);
-	const [selectedYear, setSelectedYear] = useState<number>();
-	const [accordionIndex, setdAccordionIndex] = useState<number | number[]>();
+const BasicTabs: FC<BasicTabsProps> = ({ onChange, tabs, children }) => {
+	const [era, setEra] = useState(tabs[0]);
 
-	const handleTabIndex = (index: number) => {
-		if (index === 0) return onChange("BCE");
-		if (index === 1) return onChange("CE");
+	const handleChange = (value: string) => {
+		setEra(value);
+		onChange && onChange(value);
 	};
 
 	return (
-		<section className='basic-tabs-container'>
-			<Tabs onChange={(index) => handleTabIndex(index)}>
-				<TabList className='tab-container'>
-					<label style={{ whiteSpace: "nowrap" }}>Calendar era</label>
-					<div className='tab-buttons-container'>
-						<Tab _selected={{ color: "#eb455f" }} className='tab-button'>
-							BCE/BC
-						</Tab>
-						<Tab _selected={{ color: "#eb455f" }} className='tab-button'>
-							CE/AD
-						</Tab>
-					</div>
-				</TabList>
-			</Tabs>
+		<section className='tabs-container'>
+			<div className='tab-button-container'>
+				{tabs &&
+					tabs.map((tabName) => (
+						<div
+							role='button'
+							key={tabName}
+							onClick={() => handleChange(tabName)}
+							className={`tab-button ${era === tabName ? "selected" : undefined}`}>
+							{tabName}
+						</div>
+					))}
+			</div>
+			<div className='children-container'>{children}</div>
 		</section>
 	);
 };
