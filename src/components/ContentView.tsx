@@ -10,7 +10,7 @@ const ContentView: FC<ContentViewProps> = ({ children }) => {
 		<section
 			className='full-page-container'
 			style={{
-				height:
+				minHeight:
 					document.documentElement.clientHeight - (header ? header.offsetHeight : 0),
 			}}>
 			{children}
