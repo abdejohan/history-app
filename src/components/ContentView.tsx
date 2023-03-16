@@ -6,16 +6,7 @@ interface ContentViewProps {
 
 const ContentView: FC<ContentViewProps> = ({ children }) => {
 	const header = document.querySelector("header");
-	return (
-		<section
-			className='full-page-container'
-			style={{
-				minHeight:
-					document.documentElement.clientHeight - (header ? header.offsetHeight : 0),
-			}}>
-			{children}
-		</section>
-	);
+	return <section className='full-page-container'>{children}</section>;
 };
 
 export default ContentView;
