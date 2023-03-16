@@ -2,11 +2,10 @@ type HistoryEvent = {
 	century: string;
 	eventYearHash: string;
 	title: string;
-	description?: string;
-	text: string;
+	summary: string;
 	url: string;
-	year: number;
-	duration: number;
+	startYear: string;
+	endYear?: string;
 };
 
 export type { HistoryEvent };

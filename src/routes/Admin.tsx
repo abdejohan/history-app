@@ -12,6 +12,7 @@ import Switch from "../common/Switch";
 const Admin = () => {
 	const {
 		register,
+		trigger,
 		getValues,
 		handleSubmit,
 		reset,
@@ -19,27 +20,32 @@ const Admin = () => {
 	} = useForm<HistoryEvent>({ mode: "onBlur" });
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [successMessage, setSuccessMessage] = useState<string>();
-	const [startYear, setStartYear] = useState<string>("bce");
-	const [endYear, setEndYear] = useState<string>("bce");
+	const [startEra, setStartEra] = useState<string>("BCE");
+	const [endEra, setEndEra] = useState<string>("BCE");
 	const [switchValue, setSwitchValue] = useState(false);
 
-	const onSubmit: SubmitHandler<HistoryEvent> = async (data, e) => {
-		console.log("did we get here?");
+	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
 		setErrorMessage(undefined); // Makes sure no old messages are being displayed
 		setSuccessMessage(undefined); // Makes sure no old messages are being displayed
 		const values = getValues();
-		const cleanValues = removeFalsyValues(values);
-		const eventObject = {
-			...cleanValues,
-			century: formatCentury(values.year),
-			eventYearHash: generateUniqueSortKey(values.year, values.title),
-		} as HistoryEvent;
+		const eventObject: HistoryEvent = {
+			...values,
+			century:
+				// this turnery will convert the year into a negative number if it took place before year 1
+				startEra === "BCE"
+					? formatCentury(-parseInt(values.startYear))
+					: formatCentury(parseInt(values.startYear)),
+			eventYearHash: generateUniqueSortKey(parseInt(values.startYear), values.title),
+			startYear: `${values.startYear}-${startEra}`,
+			endYear: values.endYear ? `${values.endYear}-${endEra}` : undefined,
+		};
+		const cleanEventObject = removeFalsyValues(eventObject) as HistoryEvent;
 
 		try {
-			await saveEventToDB("HistoricalEvents", eventObject);
-			setSuccessMessage("Succesfully saved.");
+			await saveEventToDB("HistoricalEvents", cleanEventObject);
+			setSuccessMessage("Succesfully saved.", cleanEventObject);
+			setSwitchValue(false);
 			reset(); // Clears the input fields
-			console.log(eventObject);
 		} catch (error) {
 			console.log(error);
 			setErrorMessage("Could not save, try again");
@@ -73,39 +79,52 @@ const Admin = () => {
 							<label>
 								Start year <span>*</span>
 							</label>
-							<BasicTabs tabs={["BCE", "CE"]} onChange={(value) => setStartYear(value)}>
+							<BasicTabs tabs={["BCE", "CE"]} onChange={(value) => setStartEra(value)}>
 								<input
 									className='input-field'
 									placeholder='356'
 									type='number'
-									{...register("year", {
+									{...register("startYear", {
 										required: "Give the event a start year.",
 										valueAsNumber: true,
 										min: { value: 1, message: "Value cant be smaller than 1" },
 									})}
 								/>
 							</BasicTabs>
-							<div className='error-message'>{errors.year && errors.year.message}</div>
+							<div className='error-message'>
+								{errors.startYear && errors.startYear.message}
+							</div>
 						</div>
 						<div className='input-container period-item'>
 							<div className='switch-and-label'>
 								<label>End year</label>
-								<Switch onChange={(checked) => setSwitchValue(checked)} />
+								<Switch
+									onChange={(checked) => {
+										trigger("url");
+										setSwitchValue(checked);
+									}}
+								/>
 							</div>
 							<BasicTabs
 								tabs={["BCE", "CE"]}
-								onChange={(value) => setEndYear(value)}
+								onChange={(value) => setEndEra(value)}
 								disabled={!switchValue}>
 								<input
 									className='input-field'
 									type='number'
-									{...register("year", {
+									{...register("endYear", {
+										required: {
+											value: switchValue,
+											message: "Enter a value or disable 'End year'",
+										},
 										valueAsNumber: true,
 										min: { value: 1, message: "Value cant be smaller than 1" },
 									})}
 								/>
 							</BasicTabs>
-							<div className='error-message'>{errors.year && errors.year.message}</div>
+							<div className='error-message'>
+								{errors.endYear && errors.endYear.message}
+							</div>
 						</div>
 					</div>
 
@@ -116,13 +135,15 @@ const Admin = () => {
 						</label>
 						<textarea
 							placeholder='Alexander the Great was a king of the ancient Greek kingdom of Macedon. He succeeded his father Philip II to...'
-							{...register("text", {
+							{...register("summary", {
 								required: "Give a small summary of the event.",
 								minLength: { value: 25, message: "Minimum of 25 characters." },
 							})}
 							rows={15}
 						/>
-						<div className='error-message'>{errors.text && errors.text.message}</div>
+						<div className='error-message'>
+							{errors.summary && errors.summary.message}
+						</div>
 					</div>
 					{/* LINK */}
 					<div className='input-container'>
