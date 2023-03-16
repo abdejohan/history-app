@@ -4,9 +4,10 @@ interface BasicTabsProps {
 	onChange?: (era: string) => void;
 	tabs: Array<string>;
 	children?: ReactNode;
+	disabled?: boolean;
 }
 
-const BasicTabs: FC<BasicTabsProps> = ({ onChange, tabs, children }) => {
+const BasicTabs: FC<BasicTabsProps> = ({ onChange, tabs, children, disabled }) => {
 	const [era, setEra] = useState(tabs[0]);
 
 	const handleChange = (value: string) => {
@@ -15,7 +16,7 @@ const BasicTabs: FC<BasicTabsProps> = ({ onChange, tabs, children }) => {
 	};
 
 	return (
-		<section className='tabs-container'>
+		<section className={`tabs-container ${disabled ? "disabled" : undefined}`}>
 			<div className='tab-button-container'>
 				{tabs &&
 					tabs.map((tabName) => (

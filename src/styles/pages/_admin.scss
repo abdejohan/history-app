@@ -19,10 +19,19 @@
 
 		& .period-container {
 			display: flex;
-			flex-flow: column nowrap;
+			justify-content: space-between;
+			flex-flow: row wrap;
 			flex-shrink: 1;
 			gap: 30px;
-			max-width: 340px;
+
+			& .period-item {
+				width: 45%;
+			}
+
+			& .switch-and-label {
+				display: flex;
+				justify-content: space-between;
+			}
 		}
 
 		& .input-container {

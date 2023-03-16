@@ -7,6 +7,7 @@ import { removeFalsyValues, generateUniqueSortKey, formatCentury } from "../util
 import Button from "../common/Button";
 import ContentView from "../components/ContentView";
 import BasicTabs from "../components/BasicTabs";
+import Switch from "../common/Switch";
 
 const Admin = () => {
 	const {
@@ -18,7 +19,9 @@ const Admin = () => {
 	} = useForm<HistoryEvent>({ mode: "onBlur" });
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [successMessage, setSuccessMessage] = useState<string>();
-	const [era, setEra] = useState<string>("bce");
+	const [startYear, setStartYear] = useState<string>("bce");
+	const [endYear, setEndYear] = useState<string>("bce");
+	const [switchValue, setSwitchValue] = useState(false);
 
 	const onSubmit: SubmitHandler<HistoryEvent> = async (data, e) => {
 		console.log("did we get here?");
@@ -66,11 +69,11 @@ const Admin = () => {
 					</div>
 					{/* EVENT YEAR */}
 					<div className='period-container'>
-						<div className='input-container'>
+						<div className='input-container period-item'>
 							<label>
-								Event start year <span>*</span>
+								Start year <span>*</span>
 							</label>
-							<BasicTabs tabs={["BCE", "CE"]} onChange={(value) => setEra(value)}>
+							<BasicTabs tabs={["BCE", "CE"]} onChange={(value) => setStartYear(value)}>
 								<input
 									className='input-field'
 									placeholder='356'
@@ -84,24 +87,25 @@ const Admin = () => {
 							</BasicTabs>
 							<div className='error-message'>{errors.year && errors.year.message}</div>
 						</div>
-						{/* EVENT DURATION */}
-						<div className='input-container'>
-							<label htmlFor='duration'>
-								Event duration <span>*</span>
-							</label>
-							<input
-								placeholder='1'
-								className='input-field'
-								type='number'
-								{...register("duration", {
-									valueAsNumber: true,
-									required: "Add a duration to the event.",
-									min: { value: 1, message: "Value cant be smaller than 1." },
-								})}
-							/>
-							<div className='error-message'>
-								{errors.duration && errors.duration.message}
+						<div className='input-container period-item'>
+							<div className='switch-and-label'>
+								<label>End year</label>
+								<Switch onChange={(checked) => setSwitchValue(checked)} />
 							</div>
+							<BasicTabs
+								tabs={["BCE", "CE"]}
+								onChange={(value) => setEndYear(value)}
+								disabled={!switchValue}>
+								<input
+									className='input-field'
+									type='number'
+									{...register("year", {
+										valueAsNumber: true,
+										min: { value: 1, message: "Value cant be smaller than 1" },
+									})}
+								/>
+							</BasicTabs>
+							<div className='error-message'>{errors.year && errors.year.message}</div>
 						</div>
 					</div>
 
