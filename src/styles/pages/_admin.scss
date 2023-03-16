@@ -35,12 +35,13 @@
 
 				& span {
 					font-size: inherit;
-					color: $accent-color;
+					color: $warning;
 				}
 			}
 
 			& .input-field {
 				font-size: 2rem;
+				background-color: $input-background;
 				height: 40px;
 				border: unset;
 				border-radius: 5px;
@@ -49,6 +50,7 @@
 			}
 
 			& textarea {
+				background-color: $input-background;
 				font-size: 2rem;
 				border-radius: 5px;
 				padding: 10px;
@@ -57,7 +59,7 @@
 
 			& .error-message {
 				font-size: 1.5rem;
-				color: $accent-color;
+				color: $accent;
 				padding: 5px;
 				min-height: 35px;
 			}

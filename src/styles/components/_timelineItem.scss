@@ -34,7 +34,7 @@
 	.timeline-item-content {
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 		border-radius: 5px;
-		background-color: $secondary-bg-color;
+		background-color: $onBackground;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
@@ -50,7 +50,7 @@
 		}
 
 		& span {
-			color: $secondary-color;
+			color: $accent;
 			font-weight: bold;
 			margin-bottom: 10px;
 			font-size: 2rem;
@@ -61,13 +61,9 @@
 			font-size: 1.5rem;
 		}
 
-		& a {
-			font-size: 1.2rem;
-		}
-
 		& .circle {
-			background-color: $primary-bg-color;
-			border: 3px solid $secondary-color;
+			background-color: $background;
+			border: 3px solid $accent;
 			border-radius: 50%;
 			position: absolute;
 			top: calc(50% - 10px);
@@ -80,7 +76,7 @@
 		/* This is the arrow that points towards the timeline circle */
 		&::after {
 			content: " ";
-			background-color: $secondary-bg-color;
+			background-color: $onBackground;
 			box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
 			position: absolute;
 			right: -7.5px;

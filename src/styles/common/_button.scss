@@ -1,8 +1,8 @@
 button {
 	font-family: Poppins-Medium;
-	background-color: $accent-color;
+	background-color: $accent;
 	height: 60px;
-	color: $primary-color;
+	color: $text2;
 	font-size: 2rem;
 	padding: 15px 30px;
 	margin: 10px 0px;
@@ -13,10 +13,10 @@ button {
 
 	&:hover {
 		cursor: pointer;
-		background-color: $accent-color-hover;
+		background-color: $accent-hover;
 	}
 }
 
 button:is(.disabled) {
-	background-color: grey;
+	background-color: $disabled;
 }
