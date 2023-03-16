@@ -6,9 +6,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	loading: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ label, disabled, loading = false, ...props }) => {
+const Button: FC<ButtonProps> = ({
+	label,
+	disabled,
+	loading = false,
+	onClick,
+	...props
+}) => {
 	return (
-		<button {...props} className={disabled ? "disabled" : undefined}>
+		<button
+			{...props}
+			className={disabled ? "disabled" : undefined}
+			onClick={disabled ? undefined : onClick}>
 			{!loading ? label : <Spinner />}
 		</button>
 	);

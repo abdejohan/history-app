@@ -4,10 +4,7 @@ type HistoryEvent = {
 	title: string;
 	description?: string;
 	text: string;
-	link?: {
-		url: string;
-		label: string;
-	};
+	url: string;
 	year: number;
 	duration: number;
 };

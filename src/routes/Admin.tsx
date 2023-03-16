@@ -2,20 +2,11 @@ import { useState } from "react";
 import { saveEventToDB } from "../database";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HistoryEvent } from "../types";
-import {
-	FormErrorMessage,
-	FormLabel,
-	FormControl,
-	Input,
-	Button,
-	Textarea,
-	NumberInput,
-	NumberInputField,
-	NumberInputStepper,
-	NumberIncrementStepper,
-	NumberDecrementStepper,
-} from "@chakra-ui/react";
+
 import { removeFalsyValues, generateUniqueSortKey, formatCentury } from "../utils";
+import Button from "../common/Button";
+import ContentView from "../components/ContentView";
+import BasicTabs from "../components/BasicTabs";
 
 const Admin = () => {
 	const {
@@ -27,8 +18,10 @@ const Admin = () => {
 	} = useForm<HistoryEvent>({ mode: "onBlur" });
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [successMessage, setSuccessMessage] = useState<string>();
+	const [era, setEra] = useState<string>("bce");
 
-	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
+	const onSubmit: SubmitHandler<HistoryEvent> = async (data, e) => {
+		console.log("did we get here?");
 		setErrorMessage(undefined); // Makes sure no old messages are being displayed
 		setSuccessMessage(undefined); // Makes sure no old messages are being displayed
 		const values = getValues();
@@ -51,131 +44,124 @@ const Admin = () => {
 	};
 
 	return (
-		<section className='admin-container'>
-			<h1>admin Dashboard</h1>
+		<ContentView>
 			<div className='form-container'>
-				<h2>Create new event</h2>
+				<h2>Add a new event</h2>
 				<form onSubmit={handleSubmit(onSubmit)} className='new-event-form'>
 					{/* TITLE */}
-					<FormControl isInvalid={errors.title}>
-						<FormLabel htmlFor='title'>
-							Title <span>*</span>
-						</FormLabel>
-						<Input
+					<div className='input-container'>
+						<label htmlFor='title'>
+							Event title <span>*</span>
+						</label>
+						<input
+							className='input-field'
+							placeholder='Birth of Alexander the Great'
 							type='text'
 							{...register("title", {
-								required: "This field is required",
+								required: "The event needs a title.",
 								minLength: { value: 5, message: "Minimum length of 5" },
 							})}
 						/>
-						<FormErrorMessage className='error-message'>
-							{errors.title && errors.title.message}
-						</FormErrorMessage>
-					</FormControl>
-					{/* START YEAR */}
-					<FormControl isInvalid={errors.year}>
-						<FormLabel>
-							Event year <span>*</span>
-							<p>
-								If the event took place before year 1, write the year as a negative number
-							</p>
-							<p style={{ marginBottom: "20px" }}>Example: Year 350 BCE = -350</p>
-						</FormLabel>
-						<NumberInput clampValueOnBlur={false} step={1}>
-							<NumberInputField
-								{...register("year", {
-									required: "This field is required",
-									valueAsNumber: true,
-									min: { value: 1, message: "Value cant be smaller than 1" },
-								})}
-							/>
-							<NumberInputStepper>
-								<NumberIncrementStepper className='increment' />
-								<NumberDecrementStepper className='increment' />
-							</NumberInputStepper>
-						</NumberInput>
-						<FormErrorMessage className='error-message'>
-							{errors.year && errors.year.message}
-						</FormErrorMessage>
-					</FormControl>
-					{/* EVENT DURATION */}
-					<FormControl isInvalid={errors.duration}>
-						<FormLabel htmlFor='duration'>
-							Event duration
-							<p>If the event was ongoing for more than 1 year</p>
-						</FormLabel>
-						<NumberInput clampValueOnBlur={false} step={1}>
-							<NumberInputField
+						<div className='error-message'>{errors.title && errors.title.message}</div>
+					</div>
+					{/* EVENT YEAR */}
+					<div className='period-container'>
+						<div className='input-container'>
+							<label>
+								Event start year <span>*</span>
+							</label>
+							<BasicTabs tabs={["BCE", "CE"]} onChange={(value) => setEra(value)}>
+								<input
+									className='input-field'
+									placeholder='356'
+									type='number'
+									{...register("year", {
+										required: "Give the event a start year.",
+										valueAsNumber: true,
+										min: { value: 1, message: "Value cant be smaller than 1" },
+									})}
+								/>
+							</BasicTabs>
+							<div className='error-message'>{errors.year && errors.year.message}</div>
+						</div>
+						{/* EVENT DURATION */}
+						<div className='input-container'>
+							<label htmlFor='duration'>
+								Event duration <span>*</span>
+							</label>
+							<input
+								placeholder='1'
+								className='input-field'
+								type='number'
 								{...register("duration", {
 									valueAsNumber: true,
+									required: "Add a duration to the event.",
 									min: { value: 1, message: "Value cant be smaller than 1." },
 								})}
 							/>
-							<NumberInputStepper>
-								<NumberIncrementStepper className='increment' />
-								<NumberDecrementStepper className='increment' />
-							</NumberInputStepper>
-						</NumberInput>
-						<FormErrorMessage className='error-message'>
-							{errors.duration && errors.duration.message}
-						</FormErrorMessage>
-					</FormControl>
+							<div className='error-message'>
+								{errors.duration && errors.duration.message}
+							</div>
+						</div>
+					</div>
+
 					{/* TEXT */}
-					<FormControl isInvalid={errors.text}>
-						<FormLabel htmlFor='text'>
-							Text <span>*</span>
-						</FormLabel>
-						<Textarea
+					<div className='input-container'>
+						<label htmlFor='text'>
+							Event summary <span>*</span>
+						</label>
+						<textarea
+							placeholder='Alexander the Great was a king of the ancient Greek kingdom of Macedon. He succeeded his father Philip II to...'
 							{...register("text", {
-								required: "This field is required",
+								required: "Give a small summary of the event.",
 								minLength: { value: 25, message: "Minimum of 25 characters." },
 							})}
 							rows={15}
 						/>
-						<FormErrorMessage className='error-message'>
-							{errors.text && errors.text.message}
-						</FormErrorMessage>
-					</FormControl>
+						<div className='error-message'>{errors.text && errors.text.message}</div>
+					</div>
 					{/* LINK */}
-					<FormControl isInvalid={errors.url}>
-						<FormLabel htmlFor='url'>Read more (url)</FormLabel>
-						<Input type='text' {...register("url")} />
-					</FormControl>
+					<div className='input-container'>
+						<label htmlFor='url'>Link to more information (url)</label>
+						<input
+							placeholder='https://en.wikipedia.org/wiki/Alexander_the_Great'
+							className='input-field'
+							type='text'
+							{...register("url")}
+						/>
+					</div>
+
 					{/* (
-					<FormControl isInvalid={errors.image}>
-						<FormLabel htmlFor='image'>Select a image</FormLabel>
-						<Input
+						<label htmlFor='image'>Select a image</label>
+						<input
+						className="input-field"
 						type='file'
 						accept='image/*'
 						{...register("image", { required: false })}
 						/>
-						<FormErrorMessage className="error-message">{errors.image && errors.text.message}</FormErrorMessage>
-					</FormControll>
+						<div className="error-message">{errors.image && errors.text.message}</div>
 					) */}
 					<Button
-						mt={4}
-						colorScheme='teal'
-						isLoading={isSubmitting}
-						loadingText='Saving'
-						isDisabled={!isValid}
-						_disabled={{ bg: "grey", _hover: { bg: "grey" } }}
 						type='submit'
-						className='submit-button'>
-						CREATE
-					</Button>
+						loading={isSubmitting}
+						label='CREATE'
+						className='submit-button'
+						disabled={!isValid}
+					/>
+
 					{successMessage && !isDirty && (
-						<span className='error-message' style={{ color: "green" }}>
+						<span className='submit-status-message' style={{ color: "green" }}>
 							{successMessage}
 						</span>
 					)}
 					{errorMessage && (
-						<span className='error-message' style={{ color: "red" }}>
+						<span className='submit-status-message' style={{ color: "red" }}>
 							{errorMessage}
 						</span>
 					)}
 				</form>
 			</div>
-		</section>
+		</ContentView>
 	);
 };
 

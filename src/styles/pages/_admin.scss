@@ -1,94 +1,71 @@
-.admin-container {
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
-	padding-bottom: 200px;
-
-	& h1 {
-		margin-bottom: 90px;
-		text-decoration: underline;
+.form-container {
+	border: 2px solid white;
+	background-color: #263159;
+	width: 100%;
+	min-width: 350px;
+	max-width: 800px;
+	border-radius: 20px;
+	padding: 50px;
+	& h2 {
+		margin: 20px;
+		text-align: center;
 	}
 
-	& .form-container {
-		border: 2px solid white;
-		background-color: #263159;
-		width: 100%;
-		min-width: 350px;
-		max-width: 800px;
-		border-radius: 20px;
-		padding: 50px;
-		& h2 {
-			margin: 20px;
-			text-align: center;
-		}
+	& .new-event-form {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 30px;
+		padding: 20px;
 
-		& .new-event-form {
+		& .period-container {
 			display: flex;
 			flex-flow: column nowrap;
+			flex-shrink: 1;
 			gap: 30px;
-			padding: 20px;
+			max-width: 340px;
+		}
+
+		& .input-container {
+			justify-content: flex-start;
+			display: flex;
+			flex-flow: column nowrap;
 
 			& label {
 				font-size: 2rem;
 
 				& span {
 					font-size: inherit;
-					color: $secondary-color;
+					color: $accent-color;
 				}
 			}
 
-			& input {
+			& .input-field {
 				font-size: 2rem;
 				height: 40px;
+				border: unset;
+				border-radius: 5px;
+				padding: 10px;
+				font-family: Poppins-Regular;
 			}
 
-			& .increment {
-				color: $primary-color;
-			}
-
-			textarea {
+			& textarea {
 				font-size: 2rem;
+				border-radius: 5px;
+				padding: 10px;
+				font-family: Poppins-Regular;
 			}
 
 			& .error-message {
 				font-size: 1.5rem;
+				color: $accent-color;
+				padding: 5px;
+				min-height: 35px;
 			}
 
-			& .submit-button {
+			& .submit-status-message {
 				font-size: 2rem;
-				width: 100%;
-				padding: 20px;
-			}
-
-			& .century-container {
-				display: flex;
-				justify-content: center;
-				gap: 50px;
-
-				& .year-wrapper {
-					border: 1px solid red;
-					display: flex;
-					flex-grow: 2;
-					flex-flow: column nowrap;
-				}
-
-				& .year-title {
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-
-					& .interval-container {
-						align-self: flex-start;
-						display: flex;
-						align-items: center;
-						gap: 10px;
-						& span {
-							font-size: 1.3rem !important;
-						}
-					}
-				}
+				padding: 5px;
+				min-height: 45px;
 			}
 		}
 	}
