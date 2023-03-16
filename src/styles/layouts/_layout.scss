@@ -1,4 +1,12 @@
 .layout {
 	background-color: $background;
 	color: $text;
+	.dd {
+		position: fixed;
+		bottom: 0px;
+		right: 100px;
+		height: 50vh;
+		width: 50vh;
+		opacity: 0.03;
+	}
 }
