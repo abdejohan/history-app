@@ -18,9 +18,7 @@ function Home() {
 				console.log(fetchedEvents);
 				setHistoryEvents(fetchedEvents.Items as HistoryEvent[]);
 				setCentury(searchCentury);
-				setTimeout(() => {
-					scrollToElement("events");
-				}, 500);
+				setTimeout(() => scrollToElement("events"), 500);
 			}
 		} catch (error) {
 			console.log(error);

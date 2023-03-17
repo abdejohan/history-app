@@ -11,10 +11,8 @@ interface DisplayEventsProps {
 
 const DisplayEvents: FC<DisplayEventsProps> = ({ events, century }) => {
 	return (
-		<ContentView>
-			<h2 id='events' className='century-title'>
-				{century}
-			</h2>
+		<ContentView id='events'>
+			<h2 className='century-title'>{century}</h2>
 			<ul className='timeline-items-container'>
 				{events &&
 					events.map((event, index) => <TimelineItem event={event} key={index} />)}

@@ -12,12 +12,18 @@ header {
 	& nav {
 		flex-grow: 1;
 		justify-content: space-between;
-		max-width: 800px;
+		max-width: 1000px;
 		& .header-logo {
 			height: 25px;
 			width: 25px;
 			opacity: 0.5;
+			transition: transform 0.2s ease-in-out;
 		}
+
+		& .header-logo:hover {
+			transform: rotate(-10deg);
+		}
+
 		display: flex;
 		align-items: center;
 		& a {
@@ -27,7 +33,6 @@ header {
 			font-weight: 500;
 			text-decoration: none;
 			font-size: 1.6rem;
-			transition: all 0.2s ease-in-out;
 			opacity: 0.8;
 		}
 
@@ -39,6 +44,10 @@ header {
 			height: 25px;
 			width: 25px;
 			opacity: 1;
+			transition: transform 0s ease-in-out;
+		}
+		& .github:hover {
+			transform: scale(1.1);
 		}
 	}
 }
