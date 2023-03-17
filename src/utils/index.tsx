@@ -1,6 +1,6 @@
-import { Heading, Text } from "@chakra-ui/react";
 import sha256 from "crypto-js/sha256";
-
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 const terminologyHelp = (
 	<div className='modal-text-wrapper'>
 		<h4>BC and AD</h4>
@@ -58,6 +58,16 @@ function generateUniqueSortKey(year: number, title: string): string {
 	return `${year}-${hash}`;
 }
 
+function ScrollToTop() {
+	const { pathname } = useLocation();
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [pathname]);
+
+	return null;
+}
+
 // Takes a year as input and returns the century and era that the year falls in.
 // Input for year before the year 1 is given as negative number. Example: Year 250 BCE is passed to function as -250
 function formatCentury(year: number): string {
@@ -91,4 +101,5 @@ export {
 	getCenturies,
 	generateUniqueSortKey,
 	scrollToElement,
+	ScrollToTop,
 };
