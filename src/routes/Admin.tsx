@@ -55,7 +55,7 @@ const Admin = () => {
 	return (
 		<ContentView>
 			<div className='form-container'>
-				<h2>Add a new event</h2>
+				<h2>Add new event</h2>
 				<form onSubmit={handleSubmit(onSubmit)} className='new-event-form'>
 					{/* TITLE */}
 					<div className='input-container'>
@@ -96,8 +96,8 @@ const Admin = () => {
 							</div>
 						</div>
 						<div className='input-container period-item'>
-							<div className='switch-and-label'>
-								<label>End year</label>
+							<label>End year</label>
+							<div className='switch-container'>
 								<Switch
 									onChange={(checked) => {
 										trigger("url");
