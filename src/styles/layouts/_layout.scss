@@ -1,7 +1,8 @@
 .layout {
 	background-color: $background;
 	color: $text;
-	.dd {
+
+	& .background-icon {
 		position: fixed;
 		bottom: 0px;
 		right: 100px;
@@ -9,4 +10,22 @@
 		width: 50vh;
 		opacity: 0.03;
 	}
+}
+
+.fade-enter {
+	opacity: 0;
+}
+
+.fade-enter-active {
+	opacity: 1;
+	transition: opacity 300ms ease-in-out;
+}
+
+.fade-exit {
+	opacity: 1;
+}
+
+.fade-exit-active {
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
 }

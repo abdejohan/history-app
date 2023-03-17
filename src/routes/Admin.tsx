@@ -43,7 +43,7 @@ const Admin = () => {
 
 		try {
 			await saveEventToDB("HistoricalEvents", cleanEventObject);
-			setSuccessMessage("Succesfully saved.", cleanEventObject);
+			setSuccessMessage("Succesfully saved.");
 			setSwitchValue(false);
 			reset(); // Clears the input fields
 		} catch (error) {
@@ -139,7 +139,7 @@ const Admin = () => {
 								required: "Give a small summary of the event.",
 								minLength: { value: 25, message: "Minimum of 25 characters." },
 							})}
-							rows={15}
+							rows={5}
 						/>
 						<div className='error-message'>
 							{errors.summary && errors.summary.message}
@@ -147,7 +147,7 @@ const Admin = () => {
 					</div>
 					{/* LINK */}
 					<div className='input-container'>
-						<label htmlFor='url'>Link to more information (url)</label>
+						<label htmlFor='url'>"Read more" URL</label>
 						<input
 							placeholder='https://en.wikipedia.org/wiki/Alexander_the_Great'
 							className='input-field'
