@@ -1,26 +1,44 @@
 header {
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
 	display: flex;
 	top: 0px;
 	width: 100%;
 	height: 50px;
-	padding: 10px;
+	padding: 0px 20px;
 	position: sticky;
 	z-index: 1;
 	background-color: $background2;
 	& nav {
+		flex-grow: 1;
+		justify-content: space-between;
+		max-width: 800px;
+		& .header-logo {
+			height: 25px;
+			width: 25px;
+			opacity: 0.5;
+		}
+		display: flex;
+		align-items: center;
 		& a {
-			padding: 20px;
+			display: flex;
+			padding: 0px 20px;
 			font-family: Poppins-Regular;
 			font-weight: 500;
 			text-decoration: none;
 			font-size: 1.6rem;
 			transition: all 0.2s ease-in-out;
+			opacity: 0.8;
 		}
 
 		& a:hover {
 			text-decoration: underline;
+		}
+		& .github {
+			margin-left: auto;
+			height: 25px;
+			width: 25px;
+			opacity: 1;
 		}
 	}
 }
