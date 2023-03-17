@@ -1,6 +1,7 @@
 .layout {
 	background-color: $background;
 	color: $text;
+	overflow-x: hidden;
 
 	& .background-icon {
 		position: fixed;
@@ -9,6 +10,13 @@
 		height: 50vh;
 		width: 50vh;
 		opacity: 0.03;
+	}
+
+	@media only screen and (max-width: 500px) {
+		& .background-icon {
+			right: unset;
+			transform: translate(calc(50vw - 50%));
+		}
 	}
 }
 
