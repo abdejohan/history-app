@@ -19,7 +19,7 @@ const Header = () => {
 					<GiAncientColumns className='header-logo' />
 					<Link to='/'>Home</Link>
 					<Link to='/admin'>Add Event</Link>
-					<Link to='/learn-more'>Learn more</Link>
+					{false && <Link to='/learn-more'>Learn more</Link>}
 				</div>
 				<Link to='https://github.com/abdejohan' target='_blank'>
 					<BsGithub className='github' color='white' />

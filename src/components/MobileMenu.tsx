@@ -17,9 +17,11 @@ const MobileMenu = () => {
 				<Link onClick={() => closeMenu()} to='/admin'>
 					Add event
 				</Link>
-				<Link onClick={() => closeMenu()} to='/'>
-					Learn more
-				</Link>
+				{false && (
+					<Link onClick={() => closeMenu()} to='/'>
+						Learn more
+					</Link>
+				)}
 			</div>
 		</div>
 	);

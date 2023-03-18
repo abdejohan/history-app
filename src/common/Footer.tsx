@@ -9,6 +9,16 @@ const Footer = () => {
 				<h5 className='list-title'>Learn more</h5>
 				<ul>
 					<li>
+						<Link to='https://historyhub.history.gov/' target='_blank'>
+							HistoryHub (Community)
+						</Link>
+					</li>
+					<li>
+						<Link to='https://www.reddit.com/r/AskHistorians/' target='_blank'>
+							AskHistorians (Community)
+						</Link>
+					</li>
+					<li>
 						<Link to='https://www.historyextra.com/podcast/' target='_blank'>
 							BBC History Extra (Podcast)
 						</Link>
@@ -21,16 +31,6 @@ const Footer = () => {
 					<li>
 						<Link to='https://www.dancarlin.com/hardcore-history-series/' target='_blank'>
 							Hardcore History with Dan Carlin (Podcast)
-						</Link>
-					</li>
-					<li>
-						<Link to='https://historyhub.history.gov/' target='_blank'>
-							HistoryHub (Community)
-						</Link>
-					</li>
-					<li>
-						<Link to='https://www.reddit.com/r/AskHistorians/' target='_blank'>
-							AskHistorians (Community)
 						</Link>
 					</li>
 				</ul>
