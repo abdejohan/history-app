@@ -6,29 +6,33 @@
 	margin: 10px 0;
 	width: 50%;
 
-	&:nth-child(odd) .timeline-item-content .circle {
-		right: auto;
-		left: -35px;
-	}
-
-	&:nth-child(odd) .timeline-item-content::after {
-		right: auto;
-		left: -7.5px;
-		box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
-	}
-
+	// Changes on what side of the line the Card should be rendered
 	&:nth-child(odd) {
 		align-self: flex-end;
 		justify-content: flex-start;
 		padding-left: 30px;
 		padding-right: 0;
-	}
 
-	&:nth-child(odd) .timeline-item-content {
-		text-align: left;
-		align-items: flex-start;
-		left: auto;
-		right: 5px;
+		// Changes text alignment inside the Card
+		& .timeline-item-content {
+			text-align: left;
+			align-items: flex-start;
+			left: auto;
+			right: 5px;
+		}
+
+		// Changes on what side of the Card the circle is rendered
+		& .timeline-item-content .circle {
+			right: auto;
+			left: -35px;
+		}
+
+		// Changes on what side of the Card the arrow is rendered
+		& .timeline-item-content::after {
+			right: auto;
+			left: -7.5px;
+			box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
+		}
 	}
 
 	.timeline-item-content {
@@ -67,7 +71,7 @@
 			z-index: 100;
 		}
 
-		/* This is the arrow that points towards the timeline circle */
+		/* This is the arrow that points towards the Card circle */
 		&::after {
 			content: " ";
 			background-color: $background2;
@@ -78,6 +82,88 @@
 			transform: rotate(45deg);
 			width: 15px;
 			height: 15px;
+		}
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+	.timeline-item {
+		width: 100%;
+		z-index: 2;
+		justify-content: center;
+		padding-right: unset;
+
+		&:nth-child(odd) {
+			align-self: center;
+			justify-content: center;
+			padding-left: unset;
+			padding-right: unset;
+
+			// Changes text alignment inside the Card
+			& .timeline-item-content {
+				text-align: left;
+				align-items: flex-start;
+				left: auto;
+				right: 5px;
+			}
+
+			// Changes on what side of the Card the circle is rendered
+			& .timeline-item-content .circle {
+				right: unset;
+				left: unset;
+			}
+
+			// Changes on what side of the Card the arrow is rendered
+			& .timeline-item-content::after {
+				right: unset;
+				left: unset;
+				box-shadow: unset;
+			}
+
+			& .timeline-item-content {
+				text-align: left;
+				align-items: flex-start;
+				left: auto;
+				right: unset;
+			}
+		}
+
+		& .timeline-item-content {
+			text-align: center !important;
+			align-items: flex-start;
+			left: unset;
+			right: unset;
+			box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+			max-width: 100%;
+			margin-bottom: 40px;
+
+			& p {
+				text-align: left;
+			}
+
+			/* This is the arrow that points towards the Card circle */
+			&::after {
+				content: " ";
+				background-color: $background2;
+				box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.5) !important;
+				top: unset;
+				bottom: -7.5px;
+				left: calc(50% - 7.5px) !important;
+				transform: rotate(-45deg);
+			}
+
+			& .circle {
+				all: unset;
+				background-color: $background;
+				border: 3px solid $accent;
+				border-radius: 50%;
+				position: absolute;
+				left: calc(50% - 11px) !important;
+				bottom: -38px;
+				width: 15px;
+				height: 15px;
+				z-index: 100;
+			}
 		}
 	}
 }
