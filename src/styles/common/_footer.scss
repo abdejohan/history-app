@@ -2,6 +2,58 @@ footer {
 	min-height: 25vh;
 	background-color: $background3;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-flow: row wrap;
+	justify-content: space-evenly;
+	align-items: flex-start;
+	padding: 50px 20px;
+
+	.list-container {
+		//border: 1px solid red;
+		display: flex;
+		flex-flow: column nowrap;
+		max-width: 300px;
+		justify-content: center;
+		align-items: flex-start;
+		padding: 20px;
+		& .list-title {
+			margin-bottom: 10px;
+			//border: 1px solid orange;
+		}
+		& ul {
+			//border: 1px solid green;
+			display: flex;
+			flex-flow: column nowrap;
+			width: fit-content;
+			gap: 15px;
+			list-style-type: none;
+			& li {
+				display: flex;
+				align-items: center;
+				& .list-icon {
+					height: 2rem;
+					width: 2rem;
+					margin-right: 6px;
+				}
+				& a {
+					font-size: 1.5rem;
+					text-decoration: none;
+					opacity: 0.6;
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 560px) {
+	footer {
+		align-items: center;
+		flex-flow: column nowrap;
+
+		& .list-container {
+			width: 250px;
+		}
+	}
 }
