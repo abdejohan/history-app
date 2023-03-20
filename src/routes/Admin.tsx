@@ -2,12 +2,12 @@ import { useState } from "react";
 import { saveEventToDB } from "../database";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HistoryEvent } from "../types";
-
 import { removeFalsyValues, generateUniqueSortKey, formatCentury } from "../utils";
 import Button from "../common/Button";
 import ContentView from "../components/ContentView";
 import BasicTabs from "../components/BasicTabs";
 import Switch from "../common/Switch";
+const submitPassword = import.meta.env.VITE_SUBMIT_PASSWORD;
 
 const Admin = () => {
 	const {
@@ -17,7 +17,7 @@ const Admin = () => {
 		handleSubmit,
 		reset,
 		formState: { errors, isSubmitting, isValid, isDirty },
-	} = useForm<HistoryEvent>({ mode: "onBlur" });
+	} = useForm<HistoryEvent & { password: string }>({ mode: "onBlur" });
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [successMessage, setSuccessMessage] = useState<string>();
 	const [startEra, setStartEra] = useState<string>("BCE");
@@ -154,6 +154,21 @@ const Admin = () => {
 							type='text'
 							{...register("url")}
 						/>
+					</div>
+					{/* PASSWORD */}
+					<div className='input-container'>
+						<label htmlFor='url'>Password</label>
+						<input
+							placeholder='******'
+							className='input-field'
+							type='password'
+							{...register("password", {
+								validate: (value) => value !== submitPassword && "Incorrect password",
+							})}
+						/>
+						<div className='error-message'>
+							{errors.password && errors.password.message}
+						</div>
 					</div>
 
 					{/* (
