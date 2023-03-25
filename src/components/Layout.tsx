@@ -1,6 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
-import { GiEgyptianPyramids } from "react-icons/gi";
 import Footer from "../common/Footer";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { ScrollToTop } from "../utils";
@@ -11,7 +10,6 @@ const Layout = () => {
 	return (
 		<main className='layout'>
 			<ScrollToTop />
-			<GiEgyptianPyramids className='background-icon' />
 			<Header />
 			<TransitionGroup>
 				<CSSTransition

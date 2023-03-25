@@ -1,7 +1,11 @@
 .layout {
-	background-color: $background;
+	// background-color: $background;
 	color: $text;
 	overflow-x: hidden;
+	background-image: url("../assets/images/background.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	box-shadow: inset 0 0 0 2000px rgba(43, 46, 74, 0.9);
 
 	& .background-icon {
 		position: fixed;
