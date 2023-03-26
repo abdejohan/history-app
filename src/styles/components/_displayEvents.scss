@@ -18,3 +18,23 @@
 		height: 100%;
 	}
 }
+
+.no-events-found-container {
+	gap: 10px;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+
+	p {
+		text-align: center;
+	}
+
+	a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
