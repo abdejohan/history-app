@@ -52,7 +52,7 @@ const StoryForm: FC = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className='event-form'>
+		<form onSubmit={handleSubmit(onSubmit)} className='story-form'>
 			{/* TITLE */}
 			<div className='input-container'>
 				<label htmlFor='title'>

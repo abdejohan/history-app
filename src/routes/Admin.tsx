@@ -6,7 +6,7 @@ const Admin = () => {
 		<ContentView>
 			<div className='form-container'>
 				<h2>Add new event</h2>
-				<StoryForm submitText='create' />
+				<StoryForm />
 			</div>
 		</ContentView>
 	);
