@@ -14,5 +14,14 @@ $background3: #0f101a;
 $input-background: #f7f0f9;
 
 // others
-$warning: #eb455f;
+$warning: orange;
 $disabled: gray;
+$success: #bbd6b8;
+$error: #fc2947;
+
+:root {
+	--primary: #6b3fa0;
+	--accent: #eb455f;
+	--success: #7aa874;
+	--error: #fc2947;
+}
