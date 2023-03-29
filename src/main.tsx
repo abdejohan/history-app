@@ -5,6 +5,7 @@ import "./styles/index.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./routes/ErrorPage";
 import Layout from "./components/Layout";
+import EditEvent from "./routes/EditEvent";
 
 const router = createBrowserRouter([
 	{
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
 			{
 				path: "/admin",
 				element: <Admin />,
+			},
+			{
+				path: "/event/:id",
+				element: <EditEvent />,
 			},
 		],
 	},
