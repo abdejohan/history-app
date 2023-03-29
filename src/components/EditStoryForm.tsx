@@ -6,14 +6,16 @@ import { removeFalsyValues, generateUniqueSortKey, formatCentury } from "../util
 import Button from "../common/Button";
 import BasicTabs from "../components/BasicTabs";
 import Switch from "../common/Switch";
+import { useNavigate } from "react-router-dom";
+import { accentColor, errorColor, successColor } from "../utils/colors";
+console.log(successColor);
 const submitPassword = import.meta.env.VITE_SUBMIT_PASSWORD;
 
 interface StoryProps {
-	submitText: string;
-	story?: HistoryEvent;
+	story: HistoryEvent;
 }
 
-const EditStoryForm: FC<StoryProps> = ({ story, submitText }) => {
+const EditStoryForm: FC<StoryProps> = ({ story }) => {
 	const {
 		register,
 		trigger,
@@ -31,6 +33,7 @@ const EditStoryForm: FC<StoryProps> = ({ story, submitText }) => {
 		story?.century.includes("CE") ? "CE" : "CE"
 	);
 	const [switchValue, setSwitchValue] = useState(false);
+	const navigate = useNavigate();
 
 	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
 		setErrorMessage(undefined); // Makes sure no old messages are being displayed
@@ -62,6 +65,13 @@ const EditStoryForm: FC<StoryProps> = ({ story, submitText }) => {
 			console.log(error);
 			setErrorMessage("Could not save, try again");
 		}
+	};
+
+	const handleDelete = async () => {
+		try {
+			await deleteStory(story?.century, story?.eventYearHash);
+			navigate("/");
+		} catch (error) {}
 	};
 
 	return (
@@ -200,9 +210,21 @@ const EditStoryForm: FC<StoryProps> = ({ story, submitText }) => {
 			<Button
 				type='submit'
 				loading={isSubmitting}
-				label={submitText.toUpperCase()}
-				className='submit-button'
+				label='SAVE CHANGES'
 				disabled={!isValid}
+				color={successColor}
+			/>
+			<Button
+				type='button'
+				label='DELETE STORY'
+				onClick={handleDelete}
+				color={errorColor}
+			/>
+			<Button
+				type='button'
+				label='RETURN'
+				onClick={() => navigate("-1")}
+				variant='text'
 			/>
 
 			{successMessage && !isDirty && (

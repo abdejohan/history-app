@@ -5,7 +5,7 @@ import "./styles/index.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./routes/ErrorPage";
 import Layout from "./components/Layout";
-import EditEvent from "./routes/EditEvent";
+import Story from "./routes/Story";
 
 const router = createBrowserRouter([
 	{
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/event/:id",
-				element: <EditEvent />,
+				element: <Story />,
 			},
 		],
 	},

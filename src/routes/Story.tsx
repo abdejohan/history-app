@@ -4,14 +4,12 @@ import ContentView from "../components/ContentView";
 import EditStoryForm from "../components/EditStoryForm";
 
 const EditEvent: FC = () => {
-	const {
-		state: { event },
-	} = useLocation();
-	console.log("Selected: ", event);
+	const { state } = useLocation();
+	const { event } = state;
 
 	return (
 		<ContentView>
-			<EditStoryForm story={event} submitText='update' />
+			<EditStoryForm story={event} />
 		</ContentView>
 	);
 };
