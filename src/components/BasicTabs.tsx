@@ -3,12 +3,19 @@ import { FC, ReactNode, useState } from "react";
 interface BasicTabsProps {
 	onChange?: (era: string) => void;
 	tabs: Array<string>;
+	startIndex?: number;
 	children?: ReactNode;
 	disabled?: boolean;
 }
 
-const BasicTabs: FC<BasicTabsProps> = ({ onChange, tabs, children, disabled }) => {
-	const [era, setEra] = useState(tabs[0]);
+const BasicTabs: FC<BasicTabsProps> = ({
+	onChange,
+	tabs,
+	children,
+	disabled,
+	startIndex = 0,
+}) => {
+	const [era, setEra] = useState(tabs[startIndex]);
 
 	const handleChange = (value: string) => {
 		setEra(value);
