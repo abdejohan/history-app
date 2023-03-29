@@ -1,6 +1,7 @@
 button {
+	opacity: 0.9;
 	font-family: Poppins-Medium;
-	background-color: $accent;
+	background-color: $primary;
 	height: 60px;
 	color: $text2;
 	font-size: 2rem;
@@ -13,10 +14,15 @@ button {
 
 	&:hover {
 		cursor: pointer;
-		background-color: $accent-hover;
+		opacity: 1;
+	}
+
+	&.text {
+		background-color: unset;
 	}
 }
 
 button:is(.disabled) {
-	background-color: $disabled;
+	opacity: unset;
+	background-color: rgba(0, 0, 0, 0.5) !important;
 }
