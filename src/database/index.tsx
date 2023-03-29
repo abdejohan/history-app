@@ -2,6 +2,7 @@ import { AWSError } from "aws-sdk";
 import DynamoDB, { QueryOutput } from "aws-sdk/clients/dynamodb";
 import { HistoryEvent } from "../types";
 
+const tableName = "HistoricalEvents";
 const dynamodb = new DynamoDB.DocumentClient({
 	region: import.meta.env.VITE_REGION,
 	accessKeyId: import.meta.env.VITE_ACCESS_KEY,
@@ -11,7 +12,7 @@ const dynamodb = new DynamoDB.DocumentClient({
 // Fetch data from DynamoDB
 const fetchCenturyEvents = async (century: string): Promise<QueryOutput | AWSError> => {
 	const params = {
-		TableName: "HistoricalEvents",
+		TableName: tableName,
 		KeyConditionExpression: "#c = :century",
 		ExpressionAttributeNames: {
 			"#c": "century",
@@ -36,7 +37,7 @@ const fetchCenturyEventsInterval = async (
 	stop: number
 ) => {
 	const params = {
-		TableName: "HistoricalEvents",
+		TableName: tableName,
 		KeyConditionExpression: "#c = :century and eventYearHash between :start and :end",
 		ExpressionAttributeNames: {
 			"#c": "century",
@@ -53,16 +54,13 @@ const fetchCenturyEventsInterval = async (
 		return fetchedData;
 	} catch (error) {
 		console.log("Failed to fetch data", error);
-		return error;
+		throw error;
 	}
 };
 
 // Add data to DynamoDB
-const saveEventToDB = async (tableName: string, data: HistoryEvent) => {
-	var params = {
-		TableName: tableName,
-		Item: data,
-	};
+const saveEventToDB = async (data: HistoryEvent) => {
+	var params = { TableName: tableName, Item: data };
 
 	try {
 		const savedData = await dynamodb.put(params).promise();
@@ -70,8 +68,25 @@ const saveEventToDB = async (tableName: string, data: HistoryEvent) => {
 		return savedData;
 	} catch (error) {
 		console.log("Failed to saved data", error);
-		return error;
+		throw error;
 	}
 };
 
-export { fetchCenturyEvents, saveEventToDB };
+const deleteStory = async (partitionKey: string, sortKey: string) => {
+	console.log(partitionKey, sortKey);
+	const params = {
+		TableName: tableName,
+		Key: { century: partitionKey, eventYearHash: sortKey },
+	};
+
+	try {
+		const deletedData = await dynamodb.delete(params).promise();
+		console.log("Successfully deleted item: ", partitionKey, sortKey);
+		return deletedData;
+	} catch (error) {
+		console.log("Failed to delete item: ", error);
+		throw error;
+	}
+};
+
+export { fetchCenturyEvents, saveEventToDB, deleteStory };
