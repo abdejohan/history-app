@@ -1,11 +1,11 @@
 import ReactDOM from "react-dom/client";
-import Home from "./routes/Home";
-import Admin from "./routes/Admin";
+import Home from "./pages/HomePage";
+import Admin from "./pages/AdminPage";
 import "./styles/index.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./routes/ErrorPage";
+import ErrorPage from "./pages/ErrorPage";
 import Layout from "./components/Layout";
-import Story from "./routes/Story";
+import Story from "./pages/StoryPage";
 import { GlobalContextProvider } from "./context/Globals";
 
 const router = createBrowserRouter([

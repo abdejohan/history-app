@@ -1,6 +1,6 @@
 import WelcomeInfo from "../components/WelcomeInfo";
 import SelectCentury from "../components/SelectCentury";
-import ContentView from "../components/ContentView";
+import ContentView from "../common/ContentView";
 import { useState, useContext } from "react";
 import { fetchCenturyEvents } from "../database";
 import { HistoryEvent } from "../types";
@@ -9,7 +9,7 @@ import { scrollToElement } from "../utils";
 import Spinner from "../common/Spinner";
 import GlobalContext from "../context/Globals";
 
-function Home() {
+function HomePage() {
 	const [loading, setLoading] = useState<boolean>(false);
 	const { setHistoryEvents, historyEvents, setSelectedCentury, selectedCentury } =
 		useContext(GlobalContext);
@@ -46,4 +46,4 @@ function Home() {
 	);
 }
 
-export default Home;
+export default HomePage;

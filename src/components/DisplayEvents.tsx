@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { HistoryEvent } from "../types";
-import ContentView from "./ContentView";
+import ContentView from "../common/ContentView";
 import TimelineItem from "./TimelineItem";
 import { TfiFaceSad } from "react-icons/tfi";
 

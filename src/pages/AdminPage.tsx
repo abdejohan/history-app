@@ -1,7 +1,7 @@
-import ContentView from "../components/ContentView";
+import ContentView from "../common/ContentView";
 import StoryForm from "../components/StoryForm";
 
-const Admin = () => {
+const AdminPage = () => {
 	return (
 		<ContentView>
 			<h2>Add new story</h2>
@@ -10,4 +10,4 @@ const Admin = () => {
 	);
 };
 
-export default Admin;
+export default AdminPage;

@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
-import Footer from "../common/Footer";
+import Footer from "../components/Footer";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { ScrollToTop } from "../utils";
 

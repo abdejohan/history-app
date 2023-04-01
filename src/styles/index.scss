@@ -1,22 +1,24 @@
 @import "./utilities/fonts";
 @import "./utilities/variables";
 @import "./utilities/typography";
-@import "./layouts/layout";
-@import "./pages/admin";
-@import "./components/header";
-@import "./components/timelineItem";
-@import "./components/storyForm";
-@import "./components/contentView";
-@import "./components/infoModal";
-@import "./components/displayEvents";
-@import "./components/welcomeInfo";
-@import "./components/selectCentury";
-@import "./components/basicTabs";
-@import "./components/mobileMenu";
+
+@import "./common/contentView";
+@import "./common/basicTabs";
 @import "./common/button";
 @import "./common/spinner";
 @import "./common/switch";
-@import "./common/footer";
+
+@import "./components/footer";
+@import "./components/layout";
+@import "./components/header";
+@import "./components/timelineItem";
+@import "./components/storyForm";
+@import "./components/displayEvents";
+@import "./components/welcomeInfo";
+@import "./components/selectCentury";
+@import "./components/mobileMenu";
+
+@import "./pages/admin";
 
 * {
 	box-sizing: border-box;

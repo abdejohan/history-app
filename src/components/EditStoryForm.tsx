@@ -4,10 +4,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { HistoryEvent } from "../types";
 import { removeFalsyValues, generateUniqueSortKey, formatCentury } from "../utils";
 import Button from "../common/Button";
-import BasicTabs from "../components/BasicTabs";
+import BasicTabs from "../common/BasicTabs";
 import Switch from "../common/Switch";
 import { useNavigate } from "react-router-dom";
-import { accentColor, errorColor, successColor } from "../utils/colors";
+import { errorColor, successColor } from "../utils/colors";
 const submitPassword = import.meta.env.VITE_SUBMIT_PASSWORD;
 
 interface StoryProps {

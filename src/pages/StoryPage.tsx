@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { useLocation } from "react-router-dom";
-import ContentView from "../components/ContentView";
+import ContentView from "../common/ContentView";
 import EditStoryForm from "../components/EditStoryForm";
 
-const EditEvent: FC = () => {
+const StoryPage: FC = () => {
 	const { state } = useLocation();
 	const { event } = state;
 
@@ -14,4 +14,4 @@ const EditEvent: FC = () => {
 	);
 };
 
-export default EditEvent;
+export default StoryPage;
