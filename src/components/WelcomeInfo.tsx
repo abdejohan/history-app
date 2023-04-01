@@ -2,7 +2,7 @@ const WelcomeInfo = () => {
 	return (
 		<div className='welcome-container'>
 			<h1>
-				Collection of events from <span>ancient history</span>
+				Collection of stories from <span>ancient history</span>
 			</h1>
 			<p>
 				Did Julius Cesar march against Gaule before the birth of Christ? Who was the king

@@ -1,8 +1,8 @@
 import { AWSError } from "aws-sdk";
 import DynamoDB, { QueryOutput } from "aws-sdk/clients/dynamodb";
-import { HistoryEvent } from "../types";
+import { Story } from "../types";
 
-const tableName = "HistoricalEvents";
+const tableName = "HistoricalStories";
 const dynamodb = new DynamoDB.DocumentClient({
 	region: import.meta.env.VITE_REGION,
 	accessKeyId: import.meta.env.VITE_ACCESS_KEY,
@@ -10,7 +10,7 @@ const dynamodb = new DynamoDB.DocumentClient({
 });
 
 // Fetch data from DynamoDB
-const fetchCenturyEvents = async (century: string): Promise<QueryOutput | AWSError> => {
+const fetchCenturyStories = async (century: string): Promise<QueryOutput | AWSError> => {
 	const params = {
 		TableName: tableName,
 		KeyConditionExpression: "#c = :century",
@@ -31,14 +31,14 @@ const fetchCenturyEvents = async (century: string): Promise<QueryOutput | AWSErr
 };
 
 // Fetch data from DynamoDB
-const fetchCenturyEventsInterval = async (
+const fetchCenturyStoriesInterval = async (
 	century: string,
 	start: number,
 	stop: number
 ) => {
 	const params = {
 		TableName: tableName,
-		KeyConditionExpression: "#c = :century and eventYearHash between :start and :end",
+		KeyConditionExpression: "#c = :century and storyYearHash between :start and :end",
 		ExpressionAttributeNames: {
 			"#c": "century",
 		},
@@ -59,7 +59,7 @@ const fetchCenturyEventsInterval = async (
 };
 
 // Add data to DynamoDB
-const saveEventToDB = async (data: HistoryEvent) => {
+const saveStoryToDB = async (data: Story) => {
 	var params = { TableName: tableName, Item: data };
 
 	try {
@@ -76,7 +76,7 @@ const deleteStory = async (partitionKey: string, sortKey: string) => {
 	console.log(partitionKey, sortKey);
 	const params = {
 		TableName: tableName,
-		Key: { century: partitionKey, eventYearHash: sortKey },
+		Key: { century: partitionKey, storyYearHash: sortKey },
 	};
 
 	try {
@@ -89,4 +89,4 @@ const deleteStory = async (partitionKey: string, sortKey: string) => {
 	}
 };
 
-export { fetchCenturyEvents, saveEventToDB, deleteStory };
+export { fetchCenturyStories, saveStoryToDB, deleteStory };

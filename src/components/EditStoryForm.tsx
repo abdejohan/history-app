@@ -1,7 +1,7 @@
 import { useState, FC } from "react";
-import { deleteStory, saveEventToDB } from "../database";
+import { deleteStory, saveStoryToDB } from "../database";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { HistoryEvent } from "../types";
+import { Story } from "../types";
 import { removeFalsyValues, generateUniqueSortKey, formatCentury } from "../utils";
 import Button from "../common/Button";
 import BasicTabs from "../common/BasicTabs";
@@ -11,7 +11,7 @@ import { errorColor, successColor } from "../utils/colors";
 const submitPassword = import.meta.env.VITE_SUBMIT_PASSWORD;
 
 interface StoryProps {
-	story: HistoryEvent;
+	story: Story;
 }
 
 const EditStoryForm: FC<StoryProps> = ({ story }) => {
@@ -22,7 +22,7 @@ const EditStoryForm: FC<StoryProps> = ({ story }) => {
 		handleSubmit,
 		reset,
 		formState: { errors, isSubmitting, isValid, isDirty },
-	} = useForm<HistoryEvent & { password: string }>({ mode: "onBlur" });
+	} = useForm<Story & { password: string }>({ mode: "onBlur" });
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [successMessage, setSuccessMessage] = useState<string>();
 	const [startEra, setStartEra] = useState<string>(
@@ -34,29 +34,29 @@ const EditStoryForm: FC<StoryProps> = ({ story }) => {
 	const [switchValue, setSwitchValue] = useState(false);
 	const navigate = useNavigate();
 
-	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
+	const onSubmit: SubmitHandler<Story> = async () => {
 		setErrorMessage(undefined); // Makes sure no old messages are being displayed
 		setSuccessMessage(undefined); // Makes sure no old messages are being displayed
 		const values = getValues();
-		const eventObject: HistoryEvent = {
+		const eventObject: Story = {
 			...values,
 			century:
 				// this turnery will convert the year into a negative number if it took place before year 1
 				startEra === "BCE"
 					? formatCentury(-parseInt(values.startYear))
 					: formatCentury(parseInt(values.startYear)),
-			eventYearHash: generateUniqueSortKey(parseInt(values.startYear), values.title),
+			storyYearHash: generateUniqueSortKey(parseInt(values.startYear), values.title),
 			startYear: `${values.startYear}-${startEra}`,
 			endYear: values.endYear ? `${values.endYear}-${endEra}` : undefined,
 		};
-		const cleanEventObject = removeFalsyValues(eventObject) as HistoryEvent;
+		const cleanEventObject = removeFalsyValues(eventObject) as Story;
 
 		try {
 			if (story) {
-				await deleteStory(story.century, story.eventYearHash);
-				await saveEventToDB(cleanEventObject);
+				await deleteStory(story.century, story.storyYearHash);
+				await saveStoryToDB(cleanEventObject);
 			}
-			if (!story) await saveEventToDB(cleanEventObject);
+			if (!story) await saveStoryToDB(cleanEventObject);
 			setSuccessMessage("Succesfully saved.");
 			setSwitchValue(false);
 			reset(); // Clears the input fields
@@ -68,7 +68,7 @@ const EditStoryForm: FC<StoryProps> = ({ story }) => {
 
 	const handleDelete = async () => {
 		try {
-			await deleteStory(story?.century, story?.eventYearHash);
+			await deleteStory(story?.century, story?.storyYearHash);
 			navigate("/");
 		} catch (error) {}
 	};

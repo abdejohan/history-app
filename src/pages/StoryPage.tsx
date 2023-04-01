@@ -5,11 +5,11 @@ import EditStoryForm from "../components/EditStoryForm";
 
 const StoryPage: FC = () => {
 	const { state } = useLocation();
-	const { event } = state;
+	const { story } = state;
 
 	return (
 		<ContentView>
-			<EditStoryForm story={event} />
+			<EditStoryForm story={story} />
 		</ContentView>
 	);
 };

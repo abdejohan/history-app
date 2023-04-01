@@ -1,7 +1,7 @@
 import { useState, FC } from "react";
-import { saveEventToDB } from "../database";
+import { saveStoryToDB } from "../database";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { HistoryEvent } from "../types";
+import { Story } from "../types";
 import { removeFalsyValues, generateUniqueSortKey, formatCentury } from "../utils";
 import Button from "../common/Button";
 import BasicTabs from "../common/BasicTabs";
@@ -16,32 +16,32 @@ const StoryForm: FC = () => {
 		handleSubmit,
 		reset,
 		formState: { errors, isSubmitting, isValid, isDirty },
-	} = useForm<HistoryEvent & { password: string }>({ mode: "onBlur" });
+	} = useForm<Story & { password: string }>({ mode: "onBlur" });
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [successMessage, setSuccessMessage] = useState<string>();
 	const [startEra, setStartEra] = useState<string>("BCE");
 	const [endEra, setEndEra] = useState<string>("BCE");
 	const [switchValue, setSwitchValue] = useState(false);
 
-	const onSubmit: SubmitHandler<HistoryEvent> = async () => {
+	const onSubmit: SubmitHandler<Story> = async () => {
 		setErrorMessage(undefined); // Makes sure no old messages are being displayed
 		setSuccessMessage(undefined); // Makes sure no old messages are being displayed
 		const values = getValues();
-		const eventObject: HistoryEvent = {
+		const StoryObject: Story = {
 			...values,
 			century:
 				// this turnery will convert the year into a negative number if it took place before year 1
 				startEra === "BCE"
 					? formatCentury(-parseInt(values.startYear))
 					: formatCentury(parseInt(values.startYear)),
-			eventYearHash: generateUniqueSortKey(parseInt(values.startYear), values.title),
+			storyYearHash: generateUniqueSortKey(parseInt(values.startYear), values.title),
 			startYear: `${values.startYear}-${startEra}`,
 			endYear: values.endYear ? `${values.endYear}-${endEra}` : undefined,
 		};
-		const cleanEventObject = removeFalsyValues(eventObject) as HistoryEvent;
+		const cleanStoryObject = removeFalsyValues(StoryObject) as Story;
 
 		try {
-			await saveEventToDB(cleanEventObject);
+			await saveStoryToDB(cleanStoryObject);
 			setSuccessMessage("Succesfully saved.");
 			setSwitchValue(false);
 			reset(); // Clears the input fields
@@ -56,7 +56,7 @@ const StoryForm: FC = () => {
 			{/* TITLE */}
 			<div className='input-container'>
 				<label htmlFor='title'>
-					Event title <span>*</span>
+					Story title <span>*</span>
 				</label>
 				<input
 					className='input-field'
@@ -69,7 +69,7 @@ const StoryForm: FC = () => {
 				/>
 				<div className='error-message'>{errors.title && errors.title.message}</div>
 			</div>
-			{/* EVENT YEAR */}
+			{/* STORY YEAR */}
 			<div className='period-container'>
 				<div className='input-container period-item'>
 					<label>
@@ -81,7 +81,7 @@ const StoryForm: FC = () => {
 							placeholder='356'
 							type='number'
 							{...register("startYear", {
-								required: "Give the event a start year.",
+								required: "Give the story a start year.",
 								valueAsNumber: true,
 								min: { value: 1, message: "Value cant be smaller than 1" },
 							})}
@@ -124,12 +124,12 @@ const StoryForm: FC = () => {
 			{/* TEXT */}
 			<div className='input-container'>
 				<label htmlFor='text'>
-					Event summary <span>*</span>
+					Story summary <span>*</span>
 				</label>
 				<textarea
 					placeholder='Alexander the Great was a king of the ancient Greek kingdom of Macedon. He succeeded his father Philip II to...'
 					{...register("summary", {
-						required: "Give a small summary of the event.",
+						required: "Give a small summary of the story.",
 						minLength: { value: 25, message: "Minimum of 25 characters." },
 					})}
 					rows={5}

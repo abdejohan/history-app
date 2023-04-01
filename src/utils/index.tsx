@@ -48,8 +48,8 @@ function removeFalsyValues(obj: Record<string, unknown>): Record<string, unknown
 
 // We need to have multiple items in the database with the same partition key (century)
 // but with unique sort keys, while still being able to sort items based on the year.
-// 1. Generates a unique sort key based on the event year and title.
-// 2. Takes the first 5 characters of the resulting hash and combines with the event year. (just so that the string is not too long)
+// 1. Generates a unique sort key based on the story year and title.
+// 2. Takes the first 5 characters of the resulting hash and combines with the story year. (just so that the string is not too long)
 // 3. Return value starts with the year so that db queries can be sorted.
 function generateUniqueSortKey(year: number, title: string): string {
 	const hash = sha256(year + title)

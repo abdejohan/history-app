@@ -18,7 +18,7 @@ const Header = () => {
 				<div className='web-navigation'>
 					<GiAncientColumns className='header-logo' />
 					<Link to='/'>Home</Link>
-					<Link to='/admin'>Add Event</Link>
+					<Link to='/admin'>Add Story</Link>
 					{false && <Link to='/learn-more'>Learn more</Link>}
 				</div>
 				<Link to='https://github.com/abdejohan' target='_blank'>

@@ -22,7 +22,7 @@ const router = createBrowserRouter([
 				element: <Admin />,
 			},
 			{
-				path: "/event/:id",
+				path: "/story/:id",
 				element: <Story />,
 			},
 		],

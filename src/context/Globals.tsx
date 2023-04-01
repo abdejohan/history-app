@@ -1,11 +1,11 @@
 import React, { useState, FC, useMemo, ReactNode } from "react";
-import { HistoryEvent } from "../types";
+import { Story } from "../types";
 
 type ContextType = {
 	selectedCentury: string;
 	setSelectedCentury: (century: string) => void;
-	historyEvents: Array<any> | null;
-	setHistoryEvents: (results: Array<any>) => void;
+	stories: Array<Story> | null;
+	setStories: (results: Array<any>) => void;
 };
 
 type ProviderProps = {
@@ -15,22 +15,22 @@ type ProviderProps = {
 const GlobalContext = React.createContext<ContextType>({
 	selectedCentury: "",
 	setSelectedCentury: () => {},
-	historyEvents: null,
-	setHistoryEvents: () => {},
+	stories: null,
+	setStories: () => {},
 });
 
 export const GlobalContextProvider: FC<ProviderProps> = ({ children }) => {
 	const [selectedCentury, setSelectedCentury] = useState<string>("");
-	const [historyEvents, setHistoryEvents] = useState<HistoryEvent[] | null>(null);
+	const [stories, setStories] = useState<Array<Story> | null>(null);
 
 	const state = useMemo(
 		() => ({
 			selectedCentury,
 			setSelectedCentury,
-			historyEvents,
-			setHistoryEvents,
+			stories,
+			setStories,
 		}),
-		[selectedCentury, setSelectedCentury, historyEvents, setHistoryEvents]
+		[selectedCentury, setSelectedCentury, stories, setStories]
 	);
 
 	return <GlobalContext.Provider value={state}>{children}</GlobalContext.Provider>;

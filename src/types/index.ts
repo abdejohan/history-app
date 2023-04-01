@@ -1,6 +1,6 @@
-type HistoryEvent = {
+type Story = {
 	century: string;
-	eventYearHash: string;
+	storyYearHash: string;
 	title: string;
 	summary: string;
 	url: string;
@@ -8,4 +8,4 @@ type HistoryEvent = {
 	endYear?: string;
 };
 
-export type { HistoryEvent };
+export type { Story };
