@@ -1,10 +1,10 @@
-import React, { useState, FC, useEffect, useMemo, ReactNode } from "react";
+import React, { useState, FC, useMemo, ReactNode } from "react";
 import { HistoryEvent } from "../types";
 
 type ContextType = {
 	selectedCentury: string;
 	setSelectedCentury: (century: string) => void;
-	historyEvents: Array<any>;
+	historyEvents: Array<any> | null;
 	setHistoryEvents: (results: Array<any>) => void;
 };
 
@@ -15,18 +15,13 @@ type ProviderProps = {
 const GlobalContext = React.createContext<ContextType>({
 	selectedCentury: "",
 	setSelectedCentury: () => {},
-	historyEvents: [],
+	historyEvents: null,
 	setHistoryEvents: () => {},
 });
 
 export const GlobalContextProvider: FC<ProviderProps> = ({ children }) => {
 	const [selectedCentury, setSelectedCentury] = useState<string>("");
-	const [historyEvents, setHistoryEvents] = useState<HistoryEvent[]>([]);
-
-	useEffect(() => {
-		// FIRST initialization of the values
-		console.log("Welcome, the page and context is working");
-	}, []);
+	const [historyEvents, setHistoryEvents] = useState<HistoryEvent[] | null>(null);
 
 	const state = useMemo(
 		() => ({
