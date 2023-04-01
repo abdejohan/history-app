@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./routes/ErrorPage";
 import Layout from "./components/Layout";
 import Story from "./routes/Story";
+import { GlobalContextProvider } from "./context/Globals";
 
 const router = createBrowserRouter([
 	{
@@ -29,5 +30,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-	<RouterProvider router={router} />
+	<GlobalContextProvider>
+		<RouterProvider router={router} />
+	</GlobalContextProvider>
 );

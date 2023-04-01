@@ -8,7 +8,6 @@ import BasicTabs from "../components/BasicTabs";
 import Switch from "../common/Switch";
 import { useNavigate } from "react-router-dom";
 import { accentColor, errorColor, successColor } from "../utils/colors";
-console.log(successColor);
 const submitPassword = import.meta.env.VITE_SUBMIT_PASSWORD;
 
 interface StoryProps {
@@ -220,12 +219,7 @@ const EditStoryForm: FC<StoryProps> = ({ story }) => {
 				onClick={handleDelete}
 				color={errorColor}
 			/>
-			<Button
-				type='button'
-				label='RETURN'
-				onClick={() => navigate("-1")}
-				variant='text'
-			/>
+			<Button type='button' label='RETURN' onClick={() => navigate("/")} variant='text' />
 
 			{successMessage && !isDirty && (
 				<span className='submit-status-message' style={{ color: "green" }}>

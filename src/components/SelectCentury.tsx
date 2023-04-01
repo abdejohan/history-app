@@ -1,16 +1,20 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
+import GlobalContext from "../context/Globals";
 import { getCenturies } from "../utils";
 const centuries = getCenturies();
 
 interface SelectedCenturyProps {
-	selected: (year: string) => void;
+	onSelected: (year: string) => void;
 }
 
-const SelectCentury: FC<SelectedCenturyProps> = ({ selected }): JSX.Element => {
+const SelectCentury: FC<SelectedCenturyProps> = ({ onSelected }): JSX.Element => {
+	const { selectedCentury } = useContext(GlobalContext);
 	return (
 		<section className='select-century-section'>
 			<h2>Select a century</h2>
-			<select onChange={(event) => selected(event.currentTarget.value)}>
+			<select
+				value={selectedCentury}
+				onChange={(event) => onSelected(event.currentTarget.value)}>
 				<option value='' />;
 				{centuries.map((century) => (
 					<option key={century} value={century}>

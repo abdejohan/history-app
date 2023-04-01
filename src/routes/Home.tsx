@@ -1,17 +1,18 @@
 import WelcomeInfo from "../components/WelcomeInfo";
 import SelectCentury from "../components/SelectCentury";
 import ContentView from "../components/ContentView";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { fetchCenturyEvents } from "../database";
 import { HistoryEvent } from "../types";
 import DisplayEvents from "../components/DisplayEvents";
 import { scrollToElement } from "../utils";
 import Spinner from "../common/Spinner";
+import GlobalContext from "../context/Globals";
 
 function Home() {
-	const [historyEvents, setHistoryEvents] = useState<HistoryEvent[]>();
-	const [century, setCentury] = useState<string>("");
 	const [loading, setLoading] = useState<boolean>(false);
+	const { setHistoryEvents, historyEvents, setSelectedCentury, selectedCentury } =
+		useContext(GlobalContext);
 
 	const fetchEvents = async (searchCentury: string) => {
 		try {
@@ -20,7 +21,7 @@ function Home() {
 			if ("Items" in fetchedEvents) {
 				console.log(fetchedEvents);
 				setHistoryEvents(fetchedEvents.Items as HistoryEvent[]);
-				setCentury(searchCentury);
+				setSelectedCentury(searchCentury);
 				setTimeout(() => {
 					scrollToElement("events");
 					setLoading(false);
@@ -35,10 +36,12 @@ function Home() {
 		<main>
 			<ContentView>
 				<WelcomeInfo />
-				<SelectCentury selected={(searchCentury) => fetchEvents(searchCentury)} />
+				<SelectCentury onSelected={(century) => fetchEvents(century)} />
 				<Spinner visible={loading} style={{ margin: "20px" }} />
 			</ContentView>
-			{historyEvents && <DisplayEvents events={historyEvents} century={century} />}
+			{historyEvents && (
+				<DisplayEvents events={historyEvents} century={selectedCentury} />
+			)}
 		</main>
 	);
 }
