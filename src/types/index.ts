@@ -3,7 +3,7 @@ type Story = {
 	storyYearHash: string;
 	title: string;
 	summary: string;
-	url: string;
+	url?: string;
 	startYear: string;
 	endYear?: string;
 };

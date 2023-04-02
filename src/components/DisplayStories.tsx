@@ -12,8 +12,8 @@ const DisplayStories: FC = () => {
 		<ContentView id='stories'>
 			<h2 className='century-title'>{selectedCentury}</h2>
 			<ul className='timeline-items-container'>
-				{stories?.map((event, index) => (
-					<TimelineItem event={event} key={index} />
+				{stories?.map((story, index) => (
+					<TimelineItem story={story} key={index} />
 				))}
 			</ul>
 			{!stories?.length && (

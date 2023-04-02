@@ -8,6 +8,7 @@ import DisplayStories from "../components/DisplayStories";
 import { scrollToElement } from "../utils";
 import Spinner from "../common/Spinner";
 import GlobalContext from "../context/Globals";
+import { mockupStories } from "../mockups/mockupDB";
 
 function HomePage() {
 	const [loading, setLoading] = useState<boolean>(false);
@@ -22,20 +23,32 @@ function HomePage() {
 				setStories(fetchedEvents.Items as Story[]);
 				setSelectedCentury(searchCentury);
 				setTimeout(() => {
-					scrollToElement("events");
+					scrollToElement("stories");
 					setLoading(false);
 				}, 500);
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setLoading(false);
 		}
+	};
+
+	const fetchMockupStories = (century: string) => {
+		setLoading(true);
+		setSelectedCentury("1st century CE");
+		setStories(mockupStories);
+		setTimeout(() => {
+			scrollToElement("stories");
+			setLoading(false);
+		}, 500);
 	};
 
 	return (
 		<main>
 			<ContentView>
 				<WelcomeInfo />
-				<SelectCentury onSelected={(century) => fetchStories(century)} />
+				<SelectCentury onSelected={(century) => fetchMockupStories(century)} />
 				<Spinner visible={loading} style={{ margin: "20px" }} />
 			</ContentView>
 			<DisplayStories />

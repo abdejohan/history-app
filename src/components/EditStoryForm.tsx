@@ -37,7 +37,8 @@ const EditStoryForm: FC<StoryProps> = ({ story }) => {
 	const onSubmit: SubmitHandler<Story> = async () => {
 		setErrorMessage(undefined); // Makes sure no old messages are being displayed
 		setSuccessMessage(undefined); // Makes sure no old messages are being displayed
-		const values = getValues();
+		const values = getValues() as any;
+		delete values.password; // prevents the pasword from being uploaded to db
 		const eventObject: Story = {
 			...values,
 			century:
@@ -50,7 +51,6 @@ const EditStoryForm: FC<StoryProps> = ({ story }) => {
 			endYear: values.endYear ? `${values.endYear}-${endEra}` : undefined,
 		};
 		const cleanEventObject = removeFalsyValues(eventObject) as Story;
-
 		try {
 			if (story) {
 				await deleteStory(story.century, story.storyYearHash);

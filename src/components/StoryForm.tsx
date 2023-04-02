@@ -63,7 +63,7 @@ const StoryForm: FC = () => {
 					placeholder='Birth of Alexander the Great'
 					type='text'
 					{...register("title", {
-						required: "The event needs a title.",
+						required: "The story needs a title.",
 						minLength: { value: 5, message: "Minimum length of 5" },
 					})}
 				/>
