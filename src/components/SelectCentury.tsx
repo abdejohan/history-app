@@ -6,7 +6,7 @@ interface SelectedCenturyProps {
 	selected: (year: string) => void;
 }
 
-const SelectCentury: FC<SelectedCenturyProps> = ({ selected }): JSX.Element => {
+const SelectCentury: FC<SelectedCenturyProps> = ({ selected }) => {
 	return (
 		<section className='select-century-section'>
 			<h2>Select a century</h2>
