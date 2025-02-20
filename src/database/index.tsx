@@ -30,32 +30,32 @@ const fetchCenturyEvents = async (century: string): Promise<QueryOutput | AWSErr
 };
 
 // Fetch data from DynamoDB
-const fetchCenturyEventsInterval = async (
-	century: string,
-	start: number,
-	stop: number
-) => {
-	const params = {
-		TableName: "HistoricalEvents",
-		KeyConditionExpression: "#c = :century and eventYearHash between :start and :end",
-		ExpressionAttributeNames: {
-			"#c": "century",
-		},
-		ExpressionAttributeValues: {
-			":century": "1st century CE",
-			":start": "1",
-			":end": "10",
-		},
-	};
-	try {
-		const fetchedData = await dynamodb.query(params).promise();
-		console.log("Successfully fetched data: ", fetchedData);
-		return fetchedData;
-	} catch (error) {
-		console.log("Failed to fetch data", error);
-		return error;
-	}
-};
+// const fetchCenturyEventsInterval = async (
+// 	century: string,
+// 	start: number,
+// 	stop: number
+// ) => {
+// 	const params = {
+// 		TableName: "HistoricalEvents",
+// 		KeyConditionExpression: "#c = :century and eventYearHash between :start and :end",
+// 		ExpressionAttributeNames: {
+// 			"#c": "century",
+// 		},
+// 		ExpressionAttributeValues: {
+// 			":century": "1st century CE",
+// 			":start": "1",
+// 			":end": "10",
+// 		},
+// 	};
+// 	try {
+// 		const fetchedData = await dynamodb.query(params).promise();
+// 		console.log("Successfully fetched data: ", fetchedData);
+// 		return fetchedData;
+// 	} catch (error) {
+// 		console.log("Failed to fetch data", error);
+// 		return error;
+// 	}
+// };
 
 // Add data to DynamoDB
 const saveEventToDB = async (tableName: string, data: HistoryEvent) => {

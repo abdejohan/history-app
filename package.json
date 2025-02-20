@@ -5,9 +5,10 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build",
+		"build": "tsc -b && vite build",
+		"lint": "eslint .",
 		"preview": "vite preview"
-	},
+	  },
 	"dependencies": {
 		"aws-sdk": "^2.1692.0",
 		"crypto-js": "^4.2.0",

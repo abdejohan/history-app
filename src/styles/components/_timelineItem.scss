@@ -1,3 +1,6 @@
+@use "../utilities/variables" as *;
+
+
 .timeline-item {
 	display: flex;
 	justify-content: flex-end;

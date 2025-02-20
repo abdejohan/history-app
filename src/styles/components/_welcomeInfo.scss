@@ -1,3 +1,6 @@
+@use "../utilities/variables" as *;
+
+
 .welcome-container {
 	display: flex;
 	flex-flow: column nowrap;

@@ -1,3 +1,6 @@
+@use "../utilities/variables" as *;
+
+
 button {
 	font-family: Poppins-Medium;
 	background-color: $accent;
